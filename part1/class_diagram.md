@@ -57,3 +57,4 @@ classDiagram
     Place --* User : composition
     Place --o Amenity : aggregated
     Review --* Place : composition
+    User --o Review : aggregated
