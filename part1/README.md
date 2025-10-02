@@ -110,7 +110,11 @@ Show what happens when a user makes a request. Illustrate how the 3 layers inter
 4. **Fetching a List of Places**: A user requests a list of places based on certain criteria.  
 
 #### User registration
-Process of a new user signing up.  
+User wants to register.
+ - The API checks with the BusinessLogic if the format of the attributes is correct.
+ - The API checks with DB if email already exists.
+ - If non-existing, the DB saves the new user’s data.
+ - DB confirms creation of the new user. 
 
 #### Place creation
 User wants to create a new place.  
