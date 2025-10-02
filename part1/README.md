@@ -40,6 +40,7 @@ The UML diagrams included in this documentation represent the conceptual and str
 ---
 
 ## High-level Package Diagram
+![Package_Diagram](./images/Package_diag.png)
 ### Purpose
 The diagram illustrates the layered architecture of the application. It shows how responsibilities are divided into three main layers—Presentation, Business Logic, and Persistence—to promote modularity, separation of concerns, and maintainability.
 
@@ -59,6 +60,7 @@ Where all data is stored (the database).
 ---
 
 ## Class Diagram
+![Class_Diagram](./images/class_diag.png.png)
 ### Purpose of the Diagram
 Defines the core domain model of the application. Shows the main entities (User, Place, Review, Amenity), their attributes, methods, and the relationships between them. Purpose: clarify the structure of the application’s business objects and their interactions.
 
@@ -110,6 +112,7 @@ Show what happens when a user makes a request. Illustrate how the 3 layers inter
 4. **Fetching a List of Places**: A user requests a list of places based on certain criteria.  
 
 #### User registration
+![Seq_User](./images/seq_user-reg.png)
 User wants to register.
  - The API checks with the BusinessLogic if the format of the attributes is correct.
  - The API checks with DB if email already exists.
@@ -117,6 +120,7 @@ User wants to register.
  - DB confirms creation of the new user. 
 
 #### Place creation
+![seq_place](./images/seq_place-creation.png)
 User wants to create a new place.  
 - The API gets the list of amenities from DB and displays it.  
 - User enters all details of the new place.  
@@ -124,11 +128,13 @@ User wants to create a new place.
 - DB confirms creation.  
 
 #### Review submission
+![seq_review](./images/seq_review.png)
 User submits a review for a place.  
 - API sends review to DB.  
 - DB stores it and confirms success.  
 
 #### Fetching a list of places
+![seq_fetching](./images/seq_fetching.png)
 User requests existing places based on criteria.  
 - API queries DB with the criteria.  
 - DB returns the list of matching places.  
