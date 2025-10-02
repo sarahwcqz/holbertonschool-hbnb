@@ -60,7 +60,10 @@ Where all data is stored (the database).
 ---
 
 ## Class Diagram
-![Class_Diagram](./images/class_diag.png.png)
+<p align="center">
+  <img src="./images/class_diag.png.png" alt="Class Diagram" width="200" height="800">
+</p>
+
 ### Purpose of the Diagram
 Defines the core domain model of the application. Shows the main entities (User, Place, Review, Amenity), their attributes, methods, and the relationships between them. Purpose: clarify the structure of the application’s business objects and their interactions.
 
