@@ -53,3 +53,20 @@ class UserResource(Resource):
             return {'error': 'User not found'}, 404
         return {'id': user.id, 'first_name': user.first_name, 'last_name': user.last_name, 'email': user.email}, 200
     
+    @api.expect(user_model, validate=True)
+    @api.response(200, 'User retrieved successfully')
+    @api.response(404, 'User not found')
+    def put(self, user_id):
+        """Update a user"""
+        #first on retrouve le user
+        user_inDB = facade.get_user(user_id)
+        if not user_inDB:
+            return "User not found", 404
+        # on update ce qu'il faut update
+            #on charge le user present dans la DB
+        updated_user = api.payload
+            #on update les champs
+        user_inDB.first_name = updated_user.get('first_name', user_inDB.first_name)
+        user_inDB.last_name = updated_user.get('last_name', user_inDB.last_name)
+        user_inDB.email = updated_user.get('email', user_inDB.email)
+        return {'id': user_inDB.id, 'first_name': user_inDB.first_name, 'last_name': user_inDB.last_name, 'email': user_inDB.email}, 200
