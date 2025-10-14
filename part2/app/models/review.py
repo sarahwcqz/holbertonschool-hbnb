@@ -4,7 +4,7 @@ class Review(BaseModel):
     def __init__(self, text, rating, place, user):
         super().__init__()
         self.text = text
-        if rating > 0 and rating < 6:
+        if 0 < rating < 6:
             self.rating = rating
         else:
             raise ValueError("rating must be from 1 to 5")
