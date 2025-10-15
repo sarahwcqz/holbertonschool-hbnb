@@ -128,6 +128,16 @@ The BaseModel class contains two methods :
 : this one updates the attributes of the object based on the provided dictionary
 
 ### User
+| Attribute   | Type      | Description                                                   |
+|--------------|-----------|---------------------------------------------------------------|
+| id           | String    | Unique identifier for each user                               |
+| first_name   | String    | The first name of the user (**Required**, max 50 chars)       |
+| last_name    | String    | The last name of the user (**Required**, max 50 chars)        |
+| email        | String    | Unique email address (**Required**, must follow email format) |
+| is_admin     | Boolean   | Indicates if user has admin privileges (Defaults to `False`)  |
+| created_at   | DateTime  | Timestamp when the user is created                            |
+| updated_at   | DateTime  | Timestamp when the user is last updated                       |
+
 
 ### Place
 
