@@ -1,14 +1,27 @@
 from flask_restx import Namespace, Resource, fields
 from app.services import facade
-
+from app.api.v1.users import user_model
+from app.api.v1.amenities import amenity_model
 api = Namespace('reviews', description='Review operations')
 
 # Define the review model for input validation and documentation
-review_model = api.model('Review', {
-    'text': fields.String(required=True, description='Text of the review'),
-    'rating': fields.Integer(required=True, description='Rating of the place (1-5)'),
-    'user_id': fields.String(required=True, description='ID of the user'),
-    'place_id': fields.String(required=True, description='ID of the place')
+review_model = api.model('PlaceReview', {
+    'id': fields.String(description='Review ID'),
+    'text': fields.String(description='Text of the review'),
+    'rating': fields.Integer(description='Rating of the place (1-5)'),
+    'user_id': fields.String(description='ID of the user')
+})
+
+place_model = api.model('Place', {
+    'title': fields.String(required=True, description='Title of the place'),
+    'description': fields.String(description='Description of the place'),
+    'price': fields.Float(required=True, description='Price per night'),
+    'latitude': fields.Float(required=True, description='Latitude of the place'),
+    'longitude': fields.Float(required=True, description='Longitude of the place'),
+    'owner_id': fields.String(required=True, description='ID of the owner'),
+    'owner': fields.Nested(user_model, description='Owner of the place'),
+    'amenities': fields.List(fields.Nested(amenity_model), description='List of amenities'),
+    'reviews': fields.List(fields.Nested(review_model), description='List of reviews')
 })
 
 @api.route('/')
@@ -16,12 +29,15 @@ class ReviewList(Resource):
     @api.expect(review_model)
     @api.response(201, 'Review successfully created')
     @api.response(400, 'Invalid input data')
+    @api.response(404, 'Place not found')
     def post(self):
         """Register a new review"""
         review_data = api.payload
         new_review = facade.create_review(review_data)
         place = facade.get_place(new_review.place_id)
-        place.add_review(review_data)
+        if not place:
+            return {"error": "Place not found"}, 404
+        place.add_review(new_review)
         return {'id': new_review.id, 'text': new_review.text, 'rating': new_review.rating, 'user_id': new_review.user_id, 'place_id': new_review.place_id}, 201
 
     @api.response(200, 'List of reviews retrieved successfully')
@@ -80,14 +96,14 @@ class PlaceReviewList(Resource):
     @api.response(404, 'Place not found')
     def get(self, place_id):
         """Get all reviews for a specific place"""
-        existing_place = facade.get_reviews_by_place(place_id)
+        existing_place = facade.get_place(place_id)
         if not existing_place:
             return {"error": "Place not found"}, 404
         return [
             {
-                "id": existing_place_items.id,
+                "id": place_id,
                 "text": existing_place_items.text,
                 "rating": existing_place_items.rating
             }
-            for existing_place_items in existing_place
+            for existing_place_items in existing_place.reviews
         ], 200
