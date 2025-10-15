@@ -20,6 +20,8 @@ class ReviewList(Resource):
         """Register a new review"""
         review_data = api.payload
         new_review = facade.create_review(review_data)
+        place = facade.get_place(new_review.place_id)
+        place.add_review(review_data)
         return {'id': new_review.id, 'text': new_review.text, 'rating': new_review.rating, 'user_id': new_review.user_id, 'place_id': new_review.place_id}, 201
 
     @api.response(200, 'List of reviews retrieved successfully')
@@ -81,4 +83,11 @@ class PlaceReviewList(Resource):
         existing_place = facade.get_reviews_by_place(place_id)
         if not existing_place:
             return {"error": "Place not found"}, 404
-        
+        return [
+            {
+                "id": existing_place_items.id,
+                "text": existing_place_items.text,
+                "rating": existing_place_items.rating
+            }
+            for existing_place_items in existing_place
+        ], 200
