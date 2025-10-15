@@ -1,6 +1,7 @@
 from app.persistence.repository import InMemoryRepository
 from app.models.user import User
 from app.models.amenity import Amenity
+from app.models.place import Place
 
 
 class HBnBFacade:
@@ -9,6 +10,7 @@ class HBnBFacade:
         self.place_repo = InMemoryRepository()
         self.review_repo = InMemoryRepository()
         self.amenity_repo = InMemoryRepository()
+
 
 # ----------------------- USER -------------------------
     def create_user(self, user_data):
@@ -25,10 +27,6 @@ class HBnBFacade:
     def get_all(self):
         return self.user_repo.get_all()
 
-    # Placeholder method for fetching a place by ID
-    def get_place(self, place_id):
-        # Logic will be implemented in later tasks
-        pass
 
 # ------------------------- AMENITY --------------------
     def create_amenity(self, amenity_data):
@@ -44,3 +42,21 @@ class HBnBFacade:
 
     def update_amenity(self, amenity_id, amenity_data):
         return self.amenity_repo.update(amenity_id, amenity_data)
+    
+
+# ---------------------- PLACE --------------------------------
+    def create_place(self, place_data):
+        place = Place(**place_data)
+        self.place_repo.add(place)
+        return place
+
+    def get_place(self, place_id):
+        return self.place_repo.get(place_id)
+
+    def get_all_places(self):
+        return self.place_repo.get_all()
+
+    def update_place(self, place_id, place_data):
+        ######### pas sure que ca marche cette affaire vu
+        ######### qu'il y en a potentiellement plsr
+        return self.place_repo.update(place_id, place_data)
