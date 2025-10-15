@@ -111,6 +111,29 @@ part2/
 
 ## BL explanation
 ### BaseModel
+This is the class from which every following subclasses will inherit.
+It contains the attributes that are common to every other subclasses:
+- **id**
+: generates a unique UUID for every object created.
+- **created_at**
+: sets up the creation date, for audit purpose.
+- **updated_at**
+: updates the updated time each time the object is updated :dizzy_face:
+<br>
+<br>
+The BaseModel class contains two methods :
+- **save**
+: it updates the updated_at timestamp whenever the object is modified
+- **update**
+: this one updates the attributes of the object based on the provided dictionary
+
+### User
+
+### Place
+
+### Amenity
+
+### Review
 
 
 ## Outro
