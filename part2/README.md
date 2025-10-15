@@ -5,6 +5,10 @@
 2. [Setting up the project](#setting-up-the-project)
 3. [Structure](#structure)
 4. [BL explanation](#bl-explanation)
+    - [Classes](#classes)
+    - [Facade](#facade)
+    - [Repository](#repository)
+    - [Endpoints](#api---endpoints)
 5. [Outro](#outro)
 
 
@@ -110,7 +114,8 @@ part2/
     : in-memory repository. In the following part of the project it will be replaced by a DB version with SQL Alchemy, but for the moment it allows us to focus on the other parts of the application.
 
 ## BL explanation
-### BaseModel
+### Classes
+#### BaseModel
 This is the class from which every following subclasses will inherit.
 It contains the attributes that are common to every other subclasses:
 - **id**
@@ -127,7 +132,7 @@ The BaseModel class contains two methods :
 - **update**
 : this one updates the attributes of the object based on the provided dictionary
 
-### User
+#### User
 | Attribute   | Type      | Description                                                   |
 |--------------|-----------|---------------------------------------------------------------|
 | id           | String    | Unique identifier for each user                               |
@@ -139,11 +144,74 @@ The BaseModel class contains two methods :
 | updated_at   | DateTime  | Timestamp when the user is last updated                       |
 
 
-### Place
+#### Place
+| Attribute   | Type      | Description                                                      |
+|--------------|-----------|------------------------------------------------------------------|
+| id           | String    | Unique identifier for each place                                 |
+| title        | String    | The title of the place (max 100 chars)             |
+| description  | String    | Detailed description of the place (Optional)                 |
+| price        | Float     | Price per night (Must be a positive value)                   |
+| latitude     | Float     | Latitude coordinate (range: -90.0 to 90.0)                       |
+| longitude    | Float     | Longitude coordinate (range: -180.0 to 180.0)                    |
+| owner        | User      | User instance who owns the place |
+| created_at   | DateTime  | Timestamp when the place is created                              |
+| updated_at   | DateTime  | Timestamp when the place is last updated                         |
 
-### Amenity
 
-### Review
+#### Amenity
+| Attribute  | Type      | Description                                                   |
+|-------------|-----------|---------------------------------------------------------------|
+| id          | String    | Unique identifier for each amenity                            |
+| name        | String    | The name of the amenity (max 50 chars) |
+| created_at  | DateTime  | Timestamp when the amenity is created                         |
+| updated_at  | DateTime  | Timestamp when the amenity is last updated                    |
+
+
+#### Review
+| Attribute  | Type      | Description                                                                 |
+|-------------|-----------|-----------------------------------------------------------------------------|
+| id          | String    | Unique identifier for each review                                           |
+| text        | String    | The content of the review                                         |
+| rating      | Integer   | Rating given to the place (Must be between 1 and 5)                         |
+| place       | Place     | Place instance being reviewed                |
+| user        | User      | User instance who wrote the review          |
+| created_at  | DateTime  | Timestamp when the review is created                                        |
+| updated_at  | DateTime  | Timestamp when the review is last updated                                   |
+
+
+### Facade
+The role of the Facade is to redirect all actions, it acts as a receptionnist in a hotel, distributing the communication between the client and the business layer.
+It handles to following methods:
+| Method | Description |
+|--------|-------------|
+| **User Methods** | |
+| create_user(user_data) | Creates a new user with the provided data |
+| get_all() | Retrieves all users |
+| get_user(user_id) | Retrieves a user by their unique ID |
+| get_user_by_email(email) | Finds a user using their email address |
+| update_user(user_id, user_data) | Updates an existing user by ID |
+| **Amenity Methods** | |
+| create_amenity(amenity_data) | Creates a new amenity |
+| get_amenity(amenity_id) | Retrieves an amenity by ID |
+| get_all_amenities() | Retrieves all amenities |
+| update_amenity(amenity_id, amenity_data) | Updates an existing amenity by ID |
+| **Place Methods** | |
+| create_place(place_data) | Creates a new place |
+| get_place(place_id) | Retrieves a place by ID |
+| get_all_places() | Retrieves all places |
+| update_place(place_id, place_data) | Updates an existing place by ID |
+| **Review Methods** | |
+| create_review(review_data) | Creates a new review for a place |
+| get_review(review_id) | Retrieves a review by ID |
+| get_all_reviews() | Retrieves all reviews |
+| get_reviews_by_place(place_id) | Retrieves all reviews for a specific place |
+| update_review(review_id, review_data) | Updates an existing review by ID |
+| delete_review(review_id) | Deletes a review by ID |
+
+
+### Repository
+
+### API - endpoints
 
 
 ## Outro
