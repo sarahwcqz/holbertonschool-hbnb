@@ -19,7 +19,6 @@ class AmenityList(Resource):
         new_amenity = facade.create_amenity(amenity_data)
         return {'id': new_amenity.id, 'name': new_amenity.name}, 201
     
-    ######erreur si deja existant?? ########
 
     @api.response(200, 'List of amenities retrieved successfully')
     def get(self):
@@ -54,10 +53,10 @@ class AmenityResource(Resource):
         #first on retrouve l'amenity'
         amenity_inDB = facade.get_amenity(amenity_id)
         if not amenity_inDB:
-            return "Amenity not found", 404
+            return {'error': "Amenity not found"}, 404
         # on update ce qu'il faut update
             #on charge le user present dans la DB
         updated_amenity = api.payload
             #on update les champs
         amenity_inDB.name = updated_amenity.get('name', amenity_inDB.name)
-        return "Amenity updated successfully", 200
+        return {'message': 'Amenity updated successfully'}, 200

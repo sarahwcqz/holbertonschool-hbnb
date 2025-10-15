@@ -54,7 +54,7 @@ class HBnBFacade:
         return self.place_repo.get(place_id)
 
     def get_all_places(self):
-        return self.amenity_repo.get_all()
+        return self.place_repo.get_all()
 
     def update_place(self, place_id, place_data):
         ######### pas sure que ca marche cette affaire vu

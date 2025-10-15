@@ -3,6 +3,19 @@ from app.services import facade
 
 api = Namespace('places', description='Place operations')
 
+# Define the models for related entities
+amenity_model = api.model('PlaceAmenity', {
+    'id': fields.String(description='Amenity ID'),
+    'name': fields.String(description='Name of the amenity')
+})
+
+user_model = api.model('PlaceUser', {
+    'id': fields.String(description='User ID'),
+    'first_name': fields.String(description='First name of the owner'),
+    'last_name': fields.String(description='Last name of the owner'),
+    'email': fields.String(description='Email of the owner')
+})
+
 # Define the place model for input validation and documentation
 place_model = api.model('Place', {
     'title': fields.String(required=True, description='Title of the place'),
@@ -24,6 +37,7 @@ class PlaceList(Resource):
         """Register a new place"""
         place_data = api.payload
         new_place = facade.create_place(place_data)
+        facade.create_amenity
         return {
             "id": new_place.id,
             'title': new_place.title,
@@ -31,7 +45,7 @@ class PlaceList(Resource):
             'price': new_place.price,
             'latitude': new_place.latitude,
             'longitude': new_place.longitude,
-            'owner_id': new_place.owner,
+            'owner_id': new_place.owner_id,
         }, 201
 
     @api.response(200, 'List of places retrieved successfully')
@@ -41,7 +55,7 @@ class PlaceList(Resource):
         return [
             {
                 "id": all_places_items.id,
-                "title": all_places_items.name,
+                "title": all_places_items.title,
                 "latitude": all_places_items.latitude,
                 "longitude": all_places_items.longitude
             }
@@ -57,7 +71,26 @@ class PlaceResource(Resource):
         place = facade.get_place(place_id)
         if not place:
             return {'error': 'Place not found'}, 404
-        ####### return a checker pcq doit inclure les amenities
+        owner_place = facade.get_user(place.owner_id)
+        return [
+            {"id": place.id,
+            "title": place.title,
+            "description": place.description,
+            "latitude": place.latitude,
+            "longitude": place.longitude,
+            "owner": {
+                'id': owner_place.id,
+                'first_name': owner_place.first_name,
+                'last_name': owner_place.last_name,
+                'email': owner_place.email
+                },
+            "amenities":[{
+                    "id": amenity.id,
+                    "name": amenity.name
+                } for amenity in place.amenities]
+                }], 200
+        
+        ####### lier amenities avec la place ########
 
 
     @api.expect(place_model)
@@ -67,4 +100,10 @@ class PlaceResource(Resource):
     def put(self, place_id):
         """Update a place's information"""
         place_inDB = facade.get_place(place_id)
-        
+        if not place_inDB:
+            return {'error': "Place not found"}, 404
+        updated_place = api.payload
+        place_inDB.title = updated_place.get('title', place_inDB.title)
+        place_inDB.description = updated_place.get('description', place_inDB.description)
+        place_inDB.price = updated_place.get('price', place_inDB.price)
+        return {'message': "Place updated successfully"}, 200
