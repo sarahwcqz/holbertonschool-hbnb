@@ -219,7 +219,7 @@ It handles to following methods:
 ### API - endpoints
 Here you will find the list of all possible operations.
 
-==Users operations==
+**Users operations**
 | Endpoint         | Method | Description |
 |-----------------|--------|-------------|
 | /users/         | POST   | Register a new user. Validates input and checks email uniqueness. Returns the created user with ID. |
@@ -227,7 +227,7 @@ Here you will find the list of all possible operations.
 | /users/<user_id> | GET    | Retrieve details of a specific user by their unique ID. Returns 404 if user not found. |
 | /users/<user_id> | PUT    | Update an existing user's information (first_name, last_name, email). Validates input. Returns 404 if user not found. |
 
-==Places operations==
+**Places operations**
 | Endpoint         | Method | Description |
 |-----------------|--------|-------------|
 | /places/        | POST   | Register a new place. Validates input and creates a new place. Returns the created place with ID and owner_id. |
@@ -235,7 +235,7 @@ Here you will find the list of all possible operations.
 | /places/<place_id> | GET    | Retrieve full details of a specific place by its ID, including owner info and associated amenities. Returns 404 if place not found. |
 | /places/<place_id> | PUT    | Update an existing place's information (title, description, price). Validates input. Returns 404 if place not found_
 
-==Amenities operations==
+**Amenities operations**
 | Endpoint            | Method | Description |
 |--------------------|--------|-------------|
 | /amenities/         | POST   | Register a new amenity. Validates input and creates a new amenity. Returns the created amenity with ID. |
@@ -243,7 +243,7 @@ Here you will find the list of all possible operations.
 | /amenities/<amenity_id> | GET    | Retrieve details of a specific amenity by its ID. Returns 404 if amenity not found. |
 | /amenities/<amenity_id> | PUT    | Update an existing amenity's information (name). Validates input. Returns 404 if amenity not found. |
 
-==Reviews operations==
+**Reviews operations**
 | Endpoint                        | Method | Description |
 |--------------------------------|--------|-------------|
 | /reviews/                       | POST   | Register a new review. Validates input and adds the review to the associated place. Returns the created review with ID. |
