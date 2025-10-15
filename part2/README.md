@@ -6,10 +6,10 @@
 3. [Structure](#structure)
 4. [BL explanation](#bl-explanation)
     - [Classes](#classes)
-    - [Facade](#facade)
     - [Repository](#repository)
+    - [Facade](#facade)
     - [Endpoints](#api---endpoints)
-5. [Outro](#outro)
+5. [Examples](#examples)
 
 
 ## Intro
@@ -179,6 +179,13 @@ The BaseModel class contains two methods :
 | updated_at  | DateTime  | Timestamp when the review is last updated                                   |
 
 
+### Repository
+This is a temporary solution to replace the database that will be implemented in the next part of the project. It contains :
+- UserRepository
+- PlaceRepository
+- AmenityRepository
+- ReviewRepository
+
 ### Facade
 The role of the Facade is to redirect all actions, it acts as a receptionnist in a hotel, distributing the communication between the client and the business layer.
 It handles to following methods:
@@ -209,10 +216,45 @@ It handles to following methods:
 | delete_review(review_id) | Deletes a review by ID |
 
 
-### Repository
-
 ### API - endpoints
+Here you will find the list of all possible operations.
+
+==Users operations==
+| Endpoint         | Method | Description |
+|-----------------|--------|-------------|
+| /users/         | POST   | Register a new user. Validates input and checks email uniqueness. Returns the created user with ID. |
+| /users/         | GET    | Retrieve a list of all users with their details (id, first_name, last_name, email). |
+| /users/<user_id> | GET    | Retrieve details of a specific user by their unique ID. Returns 404 if user not found. |
+| /users/<user_id> | PUT    | Update an existing user's information (first_name, last_name, email). Validates input. Returns 404 if user not found. |
+
+==Places operations==
+| Endpoint         | Method | Description |
+|-----------------|--------|-------------|
+| /places/        | POST   | Register a new place. Validates input and creates a new place. Returns the created place with ID and owner_id. |
+| /places/        | GET    | Retrieve a list of all places with basic details (id, title, latitude, longitude). |
+| /places/<place_id> | GET    | Retrieve full details of a specific place by its ID, including owner info and associated amenities. Returns 404 if place not found. |
+| /places/<place_id> | PUT    | Update an existing place's information (title, description, price). Validates input. Returns 404 if place not found_
+
+==Amenities operations==
+| Endpoint            | Method | Description |
+|--------------------|--------|-------------|
+| /amenities/         | POST   | Register a new amenity. Validates input and creates a new amenity. Returns the created amenity with ID. |
+| /amenities/         | GET    | Retrieve a list of all amenities with their IDs and names. |
+| /amenities/<amenity_id> | GET    | Retrieve details of a specific amenity by its ID. Returns 404 if amenity not found. |
+| /amenities/<amenity_id> | PUT    | Update an existing amenity's information (name). Validates input. Returns 404 if amenity not found. |
+
+==Reviews operations==
+| Endpoint                        | Method | Description |
+|--------------------------------|--------|-------------|
+| /reviews/                       | POST   | Register a new review. Validates input and adds the review to the associated place. Returns the created review with ID. |
+| /reviews/                       | GET    | Retrieve a list of all reviews with basic details (id, text, rating). |
+| /reviews/<review_id>            | GET    | Retrieve details of a specific review by its ID. Returns 404 if review not found. |
+| /reviews/<review_id>            | PUT    | Update an existing review's information (text, rating). Validates input. Returns 404 if review not found. |
+| /reviews/<review_id>            | DELETE | Delete a review by its ID. Returns 404 if review not found. |
+| /reviews/places/<place_id>/reviews | GET    | Retrieve all reviews for a specific place. Returns 404 if the place is not found. |
 
 
-## Outro
+
+
+## Examples
 
