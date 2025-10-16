@@ -5,7 +5,11 @@
 2. [Setting up the project](#setting-up-the-project)
 3. [Structure](#structure)
 4. [BL explanation](#bl-explanation)
-5. [Outro](#outro)
+    - [Classes](#classes)
+    - [Repository](#repository)
+    - [Facade](#facade)
+    - [Endpoints](#api---endpoints)
+5. [Examples](#examples)
 
 
 ## Intro
@@ -110,8 +114,189 @@ part2/
     : in-memory repository. In the following part of the project it will be replaced by a DB version with SQL Alchemy, but for the moment it allows us to focus on the other parts of the application.
 
 ## BL explanation
-### BaseModel
+### Classes
+#### BaseModel
+This is the class from which every following subclasses will inherit.
+It contains the attributes that are common to every other subclasses:
+- **id**
+: generates a unique UUID for every object created.
+- **created_at**
+: sets up the creation date, for audit purpose.
+- **updated_at**
+: updates the updated time each time the object is updated :dizzy_face:
+<br>
+<br>
+The BaseModel class contains two methods :
+- **save**
+: it updates the updated_at timestamp whenever the object is modified
+- **update**
+: this one updates the attributes of the object based on the provided dictionary
+
+#### User
+| Attribute   | Type      | Description                                                   |
+|--------------|-----------|---------------------------------------------------------------|
+| id           | String    | Unique identifier for each user                               |
+| first_name   | String    | The first name of the user (**Required**, max 50 chars)       |
+| last_name    | String    | The last name of the user (**Required**, max 50 chars)        |
+| email        | String    | Unique email address (**Required**, must follow email format) |
+| is_admin     | Boolean   | Indicates if user has admin privileges (Defaults to `False`)  |
+| created_at   | DateTime  | Timestamp when the user is created                            |
+| updated_at   | DateTime  | Timestamp when the user is last updated                       |
 
 
-## Outro
+#### Place
+| Attribute   | Type      | Description                                                      |
+|--------------|-----------|------------------------------------------------------------------|
+| id           | String    | Unique identifier for each place                                 |
+| title        | String    | The title of the place (max 100 chars)             |
+| description  | String    | Detailed description of the place (Optional)                 |
+| price        | Float     | Price per night (Must be a positive value)                   |
+| latitude     | Float     | Latitude coordinate (range: -90.0 to 90.0)                       |
+| longitude    | Float     | Longitude coordinate (range: -180.0 to 180.0)                    |
+| owner        | User      | User instance who owns the place |
+| created_at   | DateTime  | Timestamp when the place is created                              |
+| updated_at   | DateTime  | Timestamp when the place is last updated                         |
 
+
+#### Amenity
+| Attribute  | Type      | Description                                                   |
+|-------------|-----------|---------------------------------------------------------------|
+| id          | String    | Unique identifier for each amenity                            |
+| name        | String    | The name of the amenity (max 50 chars) |
+| created_at  | DateTime  | Timestamp when the amenity is created                         |
+| updated_at  | DateTime  | Timestamp when the amenity is last updated                    |
+
+
+#### Review
+| Attribute  | Type      | Description                                                                 |
+|-------------|-----------|-----------------------------------------------------------------------------|
+| id          | String    | Unique identifier for each review                                           |
+| text        | String    | The content of the review                                         |
+| rating      | Integer   | Rating given to the place (Must be between 1 and 5)                         |
+| place       | Place     | Place instance being reviewed                |
+| user        | User      | User instance who wrote the review          |
+| created_at  | DateTime  | Timestamp when the review is created                                        |
+| updated_at  | DateTime  | Timestamp when the review is last updated                                   |
+
+
+### Repository
+This is a temporary solution to replace the database that will be implemented in the next part of the project. It contains :
+- UserRepository
+- PlaceRepository
+- AmenityRepository
+- ReviewRepository
+
+### Facade
+The role of the Facade is to redirect all actions, it acts as a receptionnist in a hotel, distributing the communication between the client and the business layer.
+It handles to following methods:
+| Method | Description |
+|--------|-------------|
+| **User Methods** | |
+| create_user(user_data) | Creates a new user with the provided data |
+| get_all() | Retrieves all users |
+| get_user(user_id) | Retrieves a user by their unique ID |
+| get_user_by_email(email) | Finds a user using their email address |
+| update_user(user_id, user_data) | Updates an existing user by ID |
+| **Amenity Methods** | |
+| create_amenity(amenity_data) | Creates a new amenity |
+| get_amenity(amenity_id) | Retrieves an amenity by ID |
+| get_all_amenities() | Retrieves all amenities |
+| update_amenity(amenity_id, amenity_data) | Updates an existing amenity by ID |
+| **Place Methods** | |
+| create_place(place_data) | Creates a new place |
+| get_place(place_id) | Retrieves a place by ID |
+| get_all_places() | Retrieves all places |
+| update_place(place_id, place_data) | Updates an existing place by ID |
+| **Review Methods** | |
+| create_review(review_data) | Creates a new review for a place |
+| get_review(review_id) | Retrieves a review by ID |
+| get_all_reviews() | Retrieves all reviews |
+| get_reviews_by_place(place_id) | Retrieves all reviews for a specific place |
+| update_review(review_id, review_data) | Updates an existing review by ID |
+| delete_review(review_id) | Deletes a review by ID |
+
+
+### API - endpoints
+Here you will find the list of all possible operations.
+
+**Users operations**
+| Endpoint         | Method | Description |
+|-----------------|--------|-------------|
+| /users/         | POST   | Register a new user. Validates input and checks email uniqueness. Returns the created user with ID. |
+| /users/         | GET    | Retrieve a list of all users with their details (id, first_name, last_name, email). |
+| /users/<user_id> | GET    | Retrieve details of a specific user by their unique ID. Returns 404 if user not found. |
+| /users/<user_id> | PUT    | Update an existing user's information (first_name, last_name, email). Validates input. Returns 404 if user not found. |
+
+**Places operations**
+| Endpoint         | Method | Description |
+|-----------------|--------|-------------|
+| /places/        | POST   | Register a new place. Validates input and creates a new place. Returns the created place with ID and owner_id. |
+| /places/        | GET    | Retrieve a list of all places with basic details (id, title, latitude, longitude). |
+| /places/<place_id> | GET    | Retrieve full details of a specific place by its ID, including owner info and associated amenities. Returns 404 if place not found. |
+| /places/<place_id> | PUT    | Update an existing place's information (title, description, price). Validates input. Returns 404 if place not found_
+| /places/<place_id>/reviews | GET    | Retrieve all reviews for a specific place. Returns 404 if the place is not found. |
+
+**Amenities operations**
+| Endpoint            | Method | Description |
+|--------------------|--------|-------------|
+| /amenities/         | POST   | Register a new amenity. Validates input and creates a new amenity. Returns the created amenity with ID. |
+| /amenities/         | GET    | Retrieve a list of all amenities with their IDs and names. |
+| /amenities/<amenity_id> | GET    | Retrieve details of a specific amenity by its ID. Returns 404 if amenity not found. |
+| /amenities/<amenity_id> | PUT    | Update an existing amenity's information (name). Validates input. Returns 404 if amenity not found. |
+
+**Reviews operations**
+| Endpoint                        | Method | Description |
+|--------------------------------|--------|-------------|
+| /reviews/                       | POST   | Register a new review. Validates input and adds the review to the associated place. Returns the created review with ID. |
+| /reviews/                       | GET    | Retrieve a list of all reviews with basic details (id, text, rating). |
+| /reviews/<review_id>            | GET    | Retrieve details of a specific review by its ID. Returns 404 if review not found. |
+| /reviews/<review_id>            | PUT    | Update an existing review's information (text, rating). Validates input. Returns 404 if review not found. |
+| /reviews/<review_id>            | DELETE | Delete a review by its ID. Returns 404 if review not found. |
+
+
+
+
+
+## Examples
+To test our APIs we used POSTMAN, and we will show you some of our tests to explain the expected outcomes.
+Note that you can do the same tests using cURL by juste taping
+```bash
+curl -X POST [the URL that you see on the POSTMAN screenshots] \
+     -H "Content-Type: application/json" \
+     -d '{
+           [the JSON body you will see on the POSTMAN screenshots]
+         }'
+```
+The output should be similar to the one shown in examples.
+Note also that for all examples, if you use POSTMAN as shown bellow, you'll need to make sure that in the header section you add as key-value : Content-Type: application/json
+
+Let’s say you own a place, but making ends meet is difficult. You just heard about a new website that allows you to rent your place and earn some extra money, so you decide to try it out.
+First you'll need to register as a user.
+
+*When a client registers as a new user, this is what it is supposed to look like:*
+![user - POST](/part2/images/1%20-%20USER%20creation.png)
+
+Now that you have created your account as a new user, you want to publish your place for rent.
+You'll need to create a new place, belonging to you.
+
+*When a new place is created, it looks like this:*
+![place - POST](/part2/images/4%20-%20PLACE%20creation.png)
+
+You can of course always change the attributes of your place, for example if times are getting harder you can always increase the price of your place.
+
+*Updating a place would look like this:*
+![place - PUT](/part2/images/3%20-%20PLACE%20update.png)
+*Here the URL should be api/v1/places/<place_id>*
+
+It's always good to take a look at the reviews before booking a place (just in case), with Hbnb you can do that by retrieving the list of reviews left to a specific place.
+
+*Retreiving the reviews of a specific place looks like this:*
+![review - GET](/part2/images/5-%20REVIEWS%20list.png)
+*Here the URL should be api/v1/places/<place_id>/reviews*
+Here we can see that someone left a bad review, it's quite a shame. It’s even sadder knowing that the user got a bit carried away when posting their review, only to realize afterward that their watch was safely in their suitcase and hadn’t actually been stolen. Fortunately, they have the option to delete their review.
+
+*Deleting a review looks like this:*
+![review - DEL](/part2/images/5%20-%20REVIEW%20delete.png)
+*Here the URL should be api/v1/reviews/<review_id>*
+
+Since the ids change each time you run the server, you might find unmathcing user's or place's id in our examples.
