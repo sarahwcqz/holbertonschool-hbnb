@@ -108,3 +108,22 @@ class PlaceResource(Resource):
         place_inDB.description = updated_place.get('description', place_inDB.description)
         place_inDB.price = updated_place.get('price', place_inDB.price)
         return {'message': "Place updated successfully"}, 200
+    
+
+@api.route('/<place_id>/reviews')
+class PlaceReviewList(Resource):
+    @api.response(200, 'List of reviews for the place retrieved successfully')
+    @api.response(404, 'Place not found')
+    def get(self, place_id):
+        """Get all reviews for a specific place"""
+        existing_place = facade.get_place(place_id)
+        if not existing_place:
+            return {"error": "Place not found"}, 404
+        return [
+            {
+                "id": existing_place_items.id,
+                "text": existing_place_items.text,
+                "rating": existing_place_items.rating
+            }
+            for existing_place_items in existing_place.reviews
+        ], 200
