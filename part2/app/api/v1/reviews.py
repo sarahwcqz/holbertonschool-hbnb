@@ -33,10 +33,10 @@ class ReviewList(Resource):
     def post(self):
         """Register a new review"""
         review_data = api.payload
-        new_review = facade.create_review(review_data)
         place = facade.get_place(new_review.place_id)
         if not place:
             return {"error": "Place not found"}, 404
+        new_review = facade.create_review(review_data)
         place.add_review(new_review)
         return {'id': new_review.id, 'text': new_review.text, 'rating': new_review.rating, 'user_id': new_review.user_id, 'place_id': new_review.place_id}, 201
 
