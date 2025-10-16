@@ -4,9 +4,31 @@ class Review(BaseModel):
     def __init__(self, text, rating, place_id, user_id):
         super().__init__()
         self.text = text
-        if 0 < rating < 6:
-            self.rating = rating
-        else:
-            raise ValueError("rating must be from 1 to 5")
+        self.rating = rating
         self.place_id = place_id
         self.user_id = user_id
+
+
+    @property
+    def text(self):
+        return self.__text
+    
+    @text.setter
+    def text(self, value):
+        if not isinstance(value, str):
+            raise TypeError("Text must be a string")
+        self.__text = value
+
+
+    @property
+    def rating(self):
+        return self.__rating
+    
+    @rating.setter
+    def rating(self, value):
+        if not isinstance(value, int):
+            raise TypeError("Rating must be an integer")
+        if value < 1 or value > 5:
+            raise ValueError("Rating must be from 1 to 5")
+        self.__rating = value
+        
