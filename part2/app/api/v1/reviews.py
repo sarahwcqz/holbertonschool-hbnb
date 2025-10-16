@@ -101,7 +101,7 @@ class PlaceReviewList(Resource):
             return {"error": "Place not found"}, 404
         return [
             {
-                "id": place_id,
+                "id": existing_place_items.id,
                 "text": existing_place_items.text,
                 "rating": existing_place_items.rating
             }
