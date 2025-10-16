@@ -1,7 +1,7 @@
 from .BaseModel import BaseModel
 
 class Place(BaseModel):
-    def __init__(self, title, description, price, latitude, longitude, owner):
+    def __init__(self, title, description, price, latitude, longitude, owner_id):
         super().__init__()
         if len(title) < 101:
             self.title = title
@@ -20,7 +20,7 @@ class Place(BaseModel):
             self.longitude = longitude
         else:
             raise ValueError("Longitude must be in range of -180 to 180")
-        self.owner = owner
+        self.owner_id = owner_id
         self.reviews = []  # List to store related reviews
         self.amenities = []  # List to store related amenities
 
