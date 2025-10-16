@@ -33,11 +33,19 @@ class PlaceList(Resource):
     @api.expect(place_model)
     @api.response(201, 'Place successfully created')
     @api.response(400, 'Invalid input data')
+    @api.response(404, 'User not found')
     def post(self):
         """Register a new place"""
         place_data = api.payload
-        new_place = facade.create_place(place_data)
-        facade.create_amenity
+        place_owner = facade.get_user(place_data.get('owner_id'))
+        if not place_owner:
+            return {"error": "User not found"}, 404
+
+        try:
+            new_place = facade.create_place(place_data)
+        except:
+            return {"error": "Invalid input data"}, 400
+        
         return {
             "id": new_place.id,
             'title': new_place.title,
