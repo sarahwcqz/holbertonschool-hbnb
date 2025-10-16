@@ -33,11 +33,19 @@ class PlaceList(Resource):
     @api.expect(place_model)
     @api.response(201, 'Place successfully created')
     @api.response(400, 'Invalid input data')
+    @api.response(404, 'User not found')
     def post(self):
         """Register a new place"""
         place_data = api.payload
-        new_place = facade.create_place(place_data)
-        facade.create_amenity
+        place_owner = facade.get_user(place_data.get('owner_id'))
+        if not place_owner:
+            return {"error": "User not found"}, 404
+
+        try:
+            new_place = facade.create_place(place_data)
+        except:
+            return {"error": "Invalid input data"}, 400
+        
         return {
             "id": new_place.id,
             'title': new_place.title,
@@ -71,6 +79,7 @@ class PlaceResource(Resource):
         place = facade.get_place(place_id)
         if not place:
             return {'error': 'Place not found'}, 404
+        place_amenities = facade.get_amenities_of_place(place_id)
         # on va chercher le place owner
         place_owner = facade.get_user(place.owner_id)
         return [
@@ -88,7 +97,7 @@ class PlaceResource(Resource):
             "amenities":[{
                     "id": amenity.id,
                     "name": amenity.name
-                } for amenity in place.amenities]
+                } for amenity in place_amenities]
                 }], 200
         
         ####### lier amenities avec la place ########

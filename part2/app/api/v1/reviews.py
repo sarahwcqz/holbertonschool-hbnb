@@ -30,13 +30,20 @@ class ReviewList(Resource):
     @api.response(201, 'Review successfully created')
     @api.response(400, 'Invalid input data')
     @api.response(404, 'Place not found')
+    @api.response(404, 'User not found')
     def post(self):
         """Register a new review"""
         review_data = api.payload
         place = facade.get_place(review_data.get("place_id"))
         if not place:
             return {"error": "Place not found"}, 404
-        new_review = facade.create_review(review_data)
+        review_owner = facade.get_user(review_data.get("user_id"))
+        if not review_owner:
+            return {"error": "User not found"}, 404
+        try:
+            new_review = facade.create_review(review_data)
+        except:
+            return {"error": "Invalid input data"}, 400
         place.add_review(new_review)
         return {'id': new_review.id, 'text': new_review.text, 'rating': new_review.rating, 'user_id': new_review.user_id, 'place_id': new_review.place_id}, 201
 

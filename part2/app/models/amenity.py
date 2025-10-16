@@ -18,7 +18,7 @@ class Amenity(BaseModel):
             raise ValueError("name can't be empty")
         if len(value) > 50:
             raise ValueError("name must be less than 50 characters")
-        self.name = value
+        self.__name = value
 
 
     def add_places(self, place):
