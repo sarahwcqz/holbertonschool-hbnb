@@ -257,4 +257,12 @@ Here you will find the list of all possible operations.
 
 
 ## Examples
+To test our API we used POSTMAN, and we will show you some of our tests to explain the expected outcomes.
 
+Let’s say you own a place, but making ends meet is difficult. You just heard about a new website that allows you to rent your place and earn some extra money, so you decide to try it out.
+First you'll need to register as a user.
+
+*When a client registers a a new user, this is what it is supposed to look like:*
+
+
+### 
