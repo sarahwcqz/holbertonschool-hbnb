@@ -79,6 +79,7 @@ class PlaceResource(Resource):
         place = facade.get_place(place_id)
         if not place:
             return {'error': 'Place not found'}, 404
+        place_amenities = facade.get_amenities_of_place(place_id)
         # on va chercher le place owner
         place_owner = facade.get_user(place.owner_id)
         return [
@@ -96,7 +97,7 @@ class PlaceResource(Resource):
             "amenities":[{
                     "id": amenity.id,
                     "name": amenity.name
-                } for amenity in place.amenities]
+                } for amenity in place_amenities]
                 }], 200
         
         ####### lier amenities avec la place ########
