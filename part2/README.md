@@ -16,7 +16,7 @@
 This section is dedicated to the second part[^1] of the Hbnb Project of [Holberton School](https://www.holbertonschool.fr/?utm_source=google&utm_medium=cpc&utm_campaign=MV%20-%20Notori%C3%A9t%C3%A9&gad_source=1&gad_campaignid=22385717730&gbraid=0AAAAABYPkmm8wuIv2e2IzPkrS8yXrdgCP&gclid=CjwKCAjwxrLHBhA2EiwAu9EdM7bq0u_FwEIb7Ui4iyM4Obn-jqZfVNPtfYb6Y6FDopVu2O5zaI0Q5BoCSk4QAvD_BwE)
 
 
-==The objectives of this part of the project are the following== :
+**The objectives of this part of the project are the following** :
 1. Set Up the Project Structure:
     - Organize the project into a modular architecture, following best practices for Python and Flask applications.
     - Create the necessary packages for the Presentation and Business Logic layers.
@@ -297,7 +297,7 @@ It's always good to take a look at the reviews before booking a place (just in c
 *Retreiving the reviews of a specific place looks like this:*
 ![review - GET](/part2/images/5-%20REVIEWS%20list.png)
 *Here the URL should be api/v1/places/<place_id>/reviews*
-Here we can see that someone left a bad review, it's quite a shame. It’s even sadder knowing that the user got a bit carried away when posting their review, only to realize afterward that their watch was safely in their suitcase and hadn’t actually been stolen. Fortunately, they have the option to delete their review.
+Here we can see that someone left a bad review, it's quite a shame. It’s even sadder knowing that the user got a bit carried away when posting their review, only to realize afterward that their goods were safely in their suitcase and hadn’t actually been stolen. Fortunately, they have the option to delete their review.
 
 *Deleting a review looks like this:*
 ![review - DEL](/part2/images/5%20-%20REVIEW%20delete.png)
