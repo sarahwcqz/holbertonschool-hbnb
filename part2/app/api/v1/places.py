@@ -71,7 +71,8 @@ class PlaceResource(Resource):
         place = facade.get_place(place_id)
         if not place:
             return {'error': 'Place not found'}, 404
-        owner_place = facade.get_user(place.owner_id)
+        # on va chercher le place owner
+        place_owner = facade.get_user(place.owner_id)
         return [
             {"id": place.id,
             "title": place.title,
@@ -79,10 +80,10 @@ class PlaceResource(Resource):
             "latitude": place.latitude,
             "longitude": place.longitude,
             "owner": {
-                'id': owner_place.id,
-                'first_name': owner_place.first_name,
-                'last_name': owner_place.last_name,
-                'email': owner_place.email
+                'id': place_owner.id,
+                'first_name': place_owner.first_name,
+                'last_name': place_owner.last_name,
+                'email': place_owner.email
                 },
             "amenities":[{
                     "id": amenity.id,
