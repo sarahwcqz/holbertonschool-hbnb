@@ -234,6 +234,7 @@ Here you will find the list of all possible operations.
 | /places/        | GET    | Retrieve a list of all places with basic details (id, title, latitude, longitude). |
 | /places/<place_id> | GET    | Retrieve full details of a specific place by its ID, including owner info and associated amenities. Returns 404 if place not found. |
 | /places/<place_id> | PUT    | Update an existing place's information (title, description, price). Validates input. Returns 404 if place not found_
+| /places/<place_id>/reviews | GET    | Retrieve all reviews for a specific place. Returns 404 if the place is not found. |
 
 **Amenities operations**
 | Endpoint            | Method | Description |
@@ -251,18 +252,51 @@ Here you will find the list of all possible operations.
 | /reviews/<review_id>            | GET    | Retrieve details of a specific review by its ID. Returns 404 if review not found. |
 | /reviews/<review_id>            | PUT    | Update an existing review's information (text, rating). Validates input. Returns 404 if review not found. |
 | /reviews/<review_id>            | DELETE | Delete a review by its ID. Returns 404 if review not found. |
-| /reviews/places/<place_id>/reviews | GET    | Retrieve all reviews for a specific place. Returns 404 if the place is not found. |
+
 
 
 
 
 ## Examples
-To test our API we used POSTMAN, and we will show you some of our tests to explain the expected outcomes.
+To test our APIs we used POSTMAN, and we will show you some of our tests to explain the expected outcomes.
+Note that you can do the same tests using cURL by juste taping
+```bash
+curl -X POST [the URL that you see on the POSTMAN screenshots] \
+     -H "Content-Type: application/json" \
+     -d '{
+           [the JSON body you will see on the POSTMAN screenshots]
+         }'
+```
+The output should be similar to the one shown in examples.
+Note also that for all examples, if you use POSTMAN as shown bellow, you'll need to make sure that in the header section you add as key-value : Content-Type: application/json
 
 Let’s say you own a place, but making ends meet is difficult. You just heard about a new website that allows you to rent your place and earn some extra money, so you decide to try it out.
 First you'll need to register as a user.
 
-*When a client registers a a new user, this is what it is supposed to look like:*
+*When a client registers as a new user, this is what it is supposed to look like:*
+![user - POST](/part2/images/1%20-%20USER%20creation.png)
 
+Now that you have created your account as a new user, you want to publish your place for rent.
+You'll need to create a new place, belonging to you.
 
-### 
+*When a new place is created, it looks like this:*
+![place - POST](/part2/images/4%20-%20PLACE%20creation.png)
+
+You can of course always change the attributes of your place, for example if times are getting harder you can always increase the price of your place.
+
+*Updating a place would look like this:*
+![place - PUT](/part2/images/3%20-%20PLACE%20update.png)
+*Here the URL should be api/v1/places/<place_id>*
+
+It's always good to take a look at the reviews before booking a place (just in case), with Hbnb you can do that by retrieving the list of reviews left to a specific place.
+
+*Retreiving the reviews of a specific place looks like this:*
+![review - GET](/part2/images/5-%20REVIEWS%20list.png)
+*Here the URL should be api/v1/places/<place_id>/reviews*
+Here we can see that someone left a bad review, it's quite a shame. It’s even sadder knowing that the user got a bit carried away when posting their review, only to realize afterward that their watch was safely in their suitcase and hadn’t actually been stolen. Fortunately, they have the option to delete their review.
+
+*Deleting a review looks like this:*
+![review - DEL](/part2/images/5%20-%20REVIEW%20delete.png)
+*Here the URL should be api/v1/reviews/<review_id>*
+
+Since the ids change each time you run the server, you might find unmathcing user's or place's id in our examples.
