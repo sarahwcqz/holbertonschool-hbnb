@@ -25,4 +25,11 @@ class TestAmenityEndpoints(unittest.TestCase):
 
 ############################################## GET #####################################################
 
+    def test_valid(self):
+        response = self.client.get(f'/api/v1/amenities/{self.amenity1_id}')
+        self.assertEqual(response.status_code, 200)
 
+
+    def test_inexistant(self):
+        response = self.client.get(f'/api/v1/amenities/1234')
+        self.assertEqual(response.status_code, 404)
