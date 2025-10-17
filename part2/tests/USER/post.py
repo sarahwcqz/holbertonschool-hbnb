@@ -2,7 +2,6 @@ import unittest
 from app import create_app
 
 
-
 class TestUserEndpoints(unittest.TestCase):     # creation class test (herite module test)
 
     def setUp(self):    ### init l'env de test 
@@ -55,6 +54,7 @@ class TestUserEndpoints(unittest.TestCase):     # creation class test (herite mo
             "email": "TheQueen@WhiteHouse.com"
         })
         self.assertEqual(response.status_code, 400)
+
 
     def test_long_surname(self):
         response = self.client.post('/api/v1/users/', json={
