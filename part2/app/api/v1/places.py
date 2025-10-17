@@ -113,9 +113,18 @@ class PlaceResource(Resource):
         if not place_inDB:
             return {'error': "Place not found"}, 404
         updated_place = api.payload
-        place_inDB.title = updated_place.get('title', place_inDB.title)
-        place_inDB.description = updated_place.get('description', place_inDB.description)
-        place_inDB.price = updated_place.get('price', place_inDB.price)
+        try:
+            place_inDB.title = updated_place.get('title', place_inDB.title)
+        except:
+            return {"error": "Invalid input data"}, 400
+        try:
+            place_inDB.description = updated_place.get('description', place_inDB.description)
+        except:
+            return {"error": "Invalid input data"}, 400
+        try:
+            place_inDB.price = updated_place.get('price', place_inDB.price)
+        except:
+            return {"error": "Invalid input data"}, 400
         return {'message': "Place updated successfully"}, 200
     
 

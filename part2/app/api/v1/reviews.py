@@ -81,8 +81,14 @@ class ReviewResource(Resource):
         if not review_inDB:
             return {"error": "Review not found"}, 404
         updated_review = api.payload
-        review_inDB.text = updated_review.get('text', review_inDB.text) 
-        review_inDB.rating = updated_review.get('rating', review_inDB.rating)
+        try:
+            review_inDB.text = updated_review.get('text', review_inDB.text)
+        except:
+            return {"error": "Invalid input data"}, 400
+        try:
+            review_inDB.rating = updated_review.get('rating', review_inDB.rating)
+        except:
+            return {"error": "Invalid input data"}, 400
         return {"message": "Review updated successfully"}, 200
     
 

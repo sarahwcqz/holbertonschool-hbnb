@@ -61,5 +61,8 @@ class AmenityResource(Resource):
             #on charge le user present dans la DB
         updated_amenity = api.payload
             #on update les champs
-        amenity_inDB.name = updated_amenity.get('name', amenity_inDB.name)
+        try:
+            amenity_inDB.name = updated_amenity.get('name', amenity_inDB.name)
+        except:
+            return {"error": "Invalid input data"}, 400
         return {'message': 'Amenity updated successfully'}, 200
