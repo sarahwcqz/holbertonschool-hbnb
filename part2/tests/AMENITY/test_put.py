@@ -26,25 +26,25 @@ class TestAmenityEndpoints(unittest.TestCase):
 #################################################### PUT #######################################################
 
     def test_valid_id(self):
-        response = self.client.get(f'/api/v1/amenities/{self.amenity1_id}', json={
+        response = self.client.put(f'/api/v1/amenities/{self.amenity1_id}', json={
             "name": "queso"
         })
         self.assertEqual(response.status_code, 200)
 
     def test_invalid_id(self):
-        response = self.client.get(f'/api/v1/amenities/12345', json={
+        response = self.client.put(f'/api/v1/amenities/12345', json={
             "name": "queso"
         })
         self.assertEqual(response.status_code, 404)
 
     def test_empty_input(self):
-        response = self.client.get(f'/api/v1/amenities/{self.amenity1_id}', json={
+        response = self.client.put(f'/api/v1/amenities/{self.amenity1_id}', json={
             "name": ""
         })
         self.assertEqual(response.status_code, 400)
 
     def test_too_long_input(self):
-        response = self.client.get(f'/api/v1/amenities/{self.amenity1_id}', json={
+        response = self.client.put(f'/api/v1/amenities/{self.amenity1_id}', json={
             "name": "this is a very long name for an amenity again, i am running out of ideas to write down"
         })
         self.assertEqual(response.status_code, 400)
