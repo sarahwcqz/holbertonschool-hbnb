@@ -8,22 +8,94 @@ class TestReviewEndpoints(unittest.TestCase):
     def setUpClass(cls):
         cls.app = create_app()
         cls.client = cls.app.test_client()
-        user_originel = cls.client.post('/api/v1/users/', json={
+
+    #creer un user originel
+        user_originel = cls.client.post(f'/api/v1/users/', json={
             "first_name": "Michelle",
             "last_name": "Obama",
             "email": "TheQueen@WhiteHouse.com"
         })
-        response_data = user_originel.get_json()
+        response_data_renter = user_originel.get_json()
         print("Response status:", user_originel.status_code)
-        print("Response data:", response_data)
+        print("Response data:", response_data_renter)
         if user_originel.status_code != 201:
-            raise Exception(f"Failed to create initial user. Status: {user_originel.status_code}, Response: {response_data}")
-        cls.user_id = response_data["id"]
+            raise Exception(f"Failed to create initial user. Status: {user_originel.status_code}, Response: {response_data_renter}")
+        cls.renter_id = response_data_renter["id"]
+
+    #creer une place owned par ce user
+        place_originel = cls.client.post('/api/v1/places/', json={
+            "title": "Beautiful suite in a classy house",
+            "description": "Come enjoy the luxury yet classy place and feel the responsibilities upon the shoulders of the person on which an entire nation depends",
+            "price": 1000.0,
+            "latitude": 38.8977,
+            "longitude": -77.0365,
+            "owner_id": cls.renter_id
+                    })
+        response_data_place = place_originel.get_json()
+        cls.place_id = response_data_place["id"]
+
+    # creer un user qui rent la place
+        reviewer_originel = cls.client.post(f'/api/v1/users/', json={
+            "first_name": "Donald",
+            "last_name": "Trump",
+            "email": "IamAbigBaby@Disaster.com"
+        })
+        response_data_reviewer = reviewer_originel.get_json()
+        cls.reviewer_id = response_data_reviewer["id"]
+
+################################# POST ##############################
+
+    def test_review_valid(self):
+        response = self.client.post(f'api/v1/reviews/', json={
+            "text": "I'm going to make that place great again.",
+            "rating": 1,
+            "user_id": self.reviewer_id,
+            "place_id": self.place_id
+            })
+        self.assertEqual(response.status_code, 201)
 
 
-    def setUp(self):
-        self.app = create_app()
-        self.client = self.app.test_client()
+    def test_review_empty_str(self):
+        response = self.client.post(f'api/v1/reviews/', json={
+            "text": "",
+            "rating": 1,
+            "user_id": self.reviewer_id,
+            "place_id": self.place_id
+            })
+        self.assertEqual(response.status_code, 400)
 
-################################################# POST #############################################
+    def test_review_not_int(self):
+        response = self.client.post(f'api/v1/reviews/', json={
+            "text": "I'm going to make that place great again.",
+            "rating": 0.5,
+            "user_id": self.reviewer_id,
+            "place_id": self.place_id
+            })
+        self.assertEqual(response.status_code, 400)
 
+    def test_review_negativ_val(self):
+        response = self.client.post(f'api/v1/reviews/', json={
+            "text": "I'm going to make that place great again.",
+            "rating": -3,
+            "user_id": self.reviewer_id,
+            "place_id": self.place_id
+            })
+        self.assertEqual(response.status_code, 400)
+
+    def test_review_invalid_user(self):
+        response = self.client.post(f'api/v1/reviews/', json={
+            "text": "I'm going to make that place great again.",
+            "rating": 1,
+            "user_id": "self.reviewer_id",
+            "place_id": self.place_id
+            })
+        self.assertEqual(response.status_code, 400)
+
+    def test_review_invalid_place(self):
+        response = self.client.post(f'api/v1/reviews/', json={
+            "text": "I'm going to make that place great again.",
+            "rating": 1,
+            "user_id": self.reviewer_id,
+            "place_id": "self.place_id"
+            })
+        self.assertEqual(response.status_code, 400)

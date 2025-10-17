@@ -68,7 +68,7 @@ class TestReviewEndpoints(unittest.TestCase):
 
 ########### get the review from a place with place's id ####
     def test_get_place_review_valid(self):
-        response = self.client.get(f'/api/v1/places/{self.place_id}/reviews')
+        response = self.client.get(f'/api/v1/places/{self.place_id}/reviews')   ## WhyTF is it without / ?
         self.assertEqual(response.status_code, 200)
 
     def test_get_place_review_invalid(self):
