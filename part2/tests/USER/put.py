@@ -32,7 +32,7 @@ class TestUserEndpoints(unittest.TestCase):     # creation class test (herite mo
         response = self.client.put(f'/api/v1/users/{self.user_id}', json={
             "first_name": "Barack",
             "last_name": "Obama",
-            "email": "TheQueen@WhiteHouse.com"
+            "email": "TheKing@WhiteHouse.com"
         })
         self.assertEqual(response.status_code, 200)
 
