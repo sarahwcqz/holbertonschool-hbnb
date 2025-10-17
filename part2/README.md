@@ -9,14 +9,14 @@
     - [Repository](#repository)
     - [Facade](#facade)
     - [Endpoints](#api---endpoints)
-5. [Examples](#examples)
+5. [Tests examples](#tests-examples)
 
 
 ## Intro
 This section is dedicated to the second part[^1] of the Hbnb Project of [Holberton School](https://www.holbertonschool.fr/?utm_source=google&utm_medium=cpc&utm_campaign=MV%20-%20Notori%C3%A9t%C3%A9&gad_source=1&gad_campaignid=22385717730&gbraid=0AAAAABYPkmm8wuIv2e2IzPkrS8yXrdgCP&gclid=CjwKCAjwxrLHBhA2EiwAu9EdM7bq0u_FwEIb7Ui4iyM4Obn-jqZfVNPtfYb6Y6FDopVu2O5zaI0Q5BoCSk4QAvD_BwE)
 
 
-==The objectives of this part of the project are the following== :
+**The objectives of this part of the project are the following** :
 1. Set Up the Project Structure:
     - Organize the project into a modular architecture, following best practices for Python and Flask applications.
     - Create the necessary packages for the Presentation and Business Logic layers.
@@ -94,6 +94,8 @@ part2/
 ├── config.py
 ├── requirements.txt
 ├── README.md
+├── tests/
+├── images/
 ```
 - At the root of the folder you can find the following files :
     - **run.py** 
@@ -103,6 +105,8 @@ part2/
     - **requirements.txt** 
     : The file containing all packages needed for the project ([see part 3 of this section](#setting-up-the-project))
     - This marvellous **README.md**
+- The tests directory contains all our unittests to make sure our endpoints comply with the instructions
+- The images directory contains screenshots of our tests on POSTMAN, you'll find them in the Test examples section
 - You can also find the subdirectory **app/**, containing the core application code. For better readibility it is divided into the following subdirectories:
     - **api/**
     : API endpoints (atm it only contains the v1, refeering to the first version of the project)
@@ -257,7 +261,7 @@ Here you will find the list of all possible operations.
 
 
 
-## Examples
+## Test examples
 To test our APIs we used POSTMAN, and we will show you some of our tests to explain the expected outcomes.
 Note that you can do the same tests using cURL by juste taping
 ```bash
@@ -293,10 +297,13 @@ It's always good to take a look at the reviews before booking a place (just in c
 *Retreiving the reviews of a specific place looks like this:*
 ![review - GET](/part2/images/5-%20REVIEWS%20list.png)
 *Here the URL should be api/v1/places/<place_id>/reviews*
-Here we can see that someone left a bad review, it's quite a shame. It’s even sadder knowing that the user got a bit carried away when posting their review, only to realize afterward that their watch was safely in their suitcase and hadn’t actually been stolen. Fortunately, they have the option to delete their review.
+Here we can see that someone left a bad review, it's quite a shame. It’s even sadder knowing that the user got a bit carried away when posting their review, only to realize afterward that their goods were safely in their suitcase and hadn’t actually been stolen. Fortunately, they have the option to delete their review.
 
 *Deleting a review looks like this:*
 ![review - DEL](/part2/images/5%20-%20REVIEW%20delete.png)
 *Here the URL should be api/v1/reviews/<review_id>*
 
 Since the ids change each time you run the server, you might find unmathcing user's or place's id in our examples.
+
+
+We also used unittests to tests our endpoints, you can find them in the `test` directory at the root of the folder.
