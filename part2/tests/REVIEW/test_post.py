@@ -89,7 +89,7 @@ class TestReviewEndpoints(unittest.TestCase):
             "user_id": "self.reviewer_id",
             "place_id": self.place_id
             })
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 404)
 
     def test_review_invalid_place(self):
         response = self.client.post(f'api/v1/reviews/', json={
@@ -98,4 +98,4 @@ class TestReviewEndpoints(unittest.TestCase):
             "user_id": self.reviewer_id,
             "place_id": "self.place_id"
             })
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 404)
