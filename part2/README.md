@@ -306,4 +306,50 @@ Here we can see that someone left a bad review, it's quite a shame. It’s even 
 Since the ids change each time you run the server, you might find unmathcing user's or place's id in our examples.
 
 
-We also used unittests to tests our endpoints, you can find them in the `test` directory at the root of the folder.
+We also used unittests to tests our endpoints, you can find them in the `tests` directory at the root of the folder.
+Here are all the cases that we tested in those files:
+
+- **USER :**
+
+| Post | Put | Get |
+|------------|------------|------------|
+| valid input | valid input | get a list of user |
+| empty name | id not found | retrieve a user's detail with valid id |
+| empty surname | empty name | retrieve a user's detail with invalid id |
+| name > 50 | surname > 50 |  |
+| surname > 50 | invalid mail format |  |
+| invalid email format |  |  |
+
+
+- **PLACE :**
+
+| Post | Put | Get |
+|------------|------------|------------|
+| valid input | valid input | get a list of existing places |
+| empty title | partial update | get a place's details with valid id |
+| price < 0 | invalid title | get a place's details with invalid id |
+| invalid latitude | place's id not found |  |
+| invalid longitude |  |  |
+| owner's id not found |  |  |
+
+
+- **AMENITY :**
+
+| Post | Put | Get |
+|------------|------------|------------|
+| valid input | valid input | get a list of all existing amenities |
+| empty name | invalid  id | get an amenity with id with valid id |
+| name > 50 | empty name | get an amenity with id with invalid id |
+|  | name > 50 |  |
+
+
+- **REVIEW :**
+
+| Post | Put | Get | Delete |
+|------------|------------|------------|------------|
+| valid input | valid input | get a review with valid id | valid id |
+| empty string  | empty string | get a review with invalid id | invalid id |
+| rate is not integer | rate < 0 | get the reviews from a place with valid place's id | 
+| rate < 0 | review's id not found | get the reviews from a place with valid place's id |
+| user's id not found | 
+| place's id not found | 
