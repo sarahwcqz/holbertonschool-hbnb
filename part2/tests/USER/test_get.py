@@ -28,6 +28,13 @@ class TestUserEndpoints(unittest.TestCase):     # creation class test (herite mo
 
         
 ################################################# GET #############################################
+####### List of existing users ######
+    def test_list(self):
+        response = self.client.get(f'/api/v1/users/')
+        self.assertEqual(response.status_code, 200)
+
+
+####### Retrieve a user's details with users' id#####
     def test_existing(self):
         response = self.client.get(f'/api/v1/users/{self.user_id}')
         self.assertEqual(response.status_code, 200)
