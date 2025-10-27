@@ -1,17 +1,23 @@
 from flask import Flask
+
+import config
+
+from app.extensions import bcrypt, jwt
+
 from flask_restx import Api
 from app.api.users import api as users_ns
 from app.api.amenities import api as amenities_ns
 from app.api.places import api as places_ns
 from app.api.reviews import api as review_ns
-from app.extensions import bcrypt
 
 
-def create_app(config_class="config.DevelopmentConfig"):
+def create_app(config_class=config.DevelopmentConfig):
     app = Flask(__name__)
     app.config.from_object(config_class)
     
     bcrypt.init_app(app)
+
+    jwt.init_app(app)
 
     api = Api(app, version='1.0', title='HBnB API', description='HBnB Application API', doc='/api/v1/')
     api.add_namespace(users_ns, path='/api/v1/users')
