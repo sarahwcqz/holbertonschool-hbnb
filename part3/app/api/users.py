@@ -11,6 +11,8 @@ user_model = api.model('User', {
     'password': fields.String(required=True, description='Password of the user')
 })
 
+
+###################################### Post new user #######################################
 @api.route('/')
 class UserList(Resource):
     @api.expect(user_model, validate=True)
@@ -33,6 +35,7 @@ class UserList(Resource):
             return {"error": "Invalid input data"}, 400
         return {'id': new_user.id, 'success': 'User successfully created'}, 201
 
+################################### Get list of all users ####################################
     def get(self):
         """Retrieve a List of Users"""
         all_users = facade.get_all()
@@ -47,6 +50,7 @@ class UserList(Resource):
         ], 200
     
 
+######################## get usr's details by id ########################
 @api.route('/<user_id>')
 class UserResource(Resource):
     @api.response(200, 'User details retrieved successfully')
@@ -58,6 +62,7 @@ class UserResource(Resource):
             return {'error': 'User not found'}, 404
         return {'id': user.id, 'first_name': user.first_name, 'last_name': user.last_name, 'email': user.email}, 200
     
+########################## Update usr's info #############################
     @api.expect(user_model, validate=True)
     @api.response(200, 'User retrieved successfully')
     @api.response(404, 'User not found')
@@ -84,3 +89,4 @@ class UserResource(Resource):
         except:
             return {"error": "Invalid input data"}, 400
         return {'id': user_inDB.id, 'first_name': user_inDB.first_name, 'last_name': user_inDB.last_name, 'email': user_inDB.email}, 200
+    
