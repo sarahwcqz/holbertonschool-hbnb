@@ -31,7 +31,7 @@ class UserList(Resource):
             new_user = facade.create_user(user_data)
         except:
             return {"error": "Invalid input data"}, 400
-        return {'id': new_user.id, 'pswd': new_user.password, 'success': 'User successfully created'}, 201
+        return {'id': new_user.id, 'success': 'User successfully created'}, 201
 
     def get(self):
         """Retrieve a List of Users"""
