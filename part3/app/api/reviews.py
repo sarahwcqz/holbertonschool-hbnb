@@ -1,7 +1,7 @@
 from flask_restx import Namespace, Resource, fields
 from app.services import facade
-from app.api.v1.users import user_model
-from app.api.v1.amenities import amenity_model
+from app.api.users import user_model
+from app.api.amenities import amenity_model
 api = Namespace('reviews', description='Review operations')
 
 # Define the review model for input validation and documentation

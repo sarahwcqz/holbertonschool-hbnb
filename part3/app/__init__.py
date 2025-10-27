@@ -1,9 +1,9 @@
 from flask import Flask
 from flask_restx import Api
-from app.api.v1.users import api as users_ns
-from app.api.v1.amenities import api as amenities_ns
-from app.api.v1.places import api as places_ns
-from app.api.v1.reviews import api as review_ns
+from app.api.users import api as users_ns
+from app.api.amenities import api as amenities_ns
+from app.api.places import api as places_ns
+from app.api.reviews import api as review_ns
 from flask_bcrypt import Bcrypt
 
 bcrypt = Bcrypt()
