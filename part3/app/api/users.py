@@ -1,6 +1,7 @@
 from flask_restx import Namespace, Resource, fields
 from app.services import facade
 from flask import jsonify
+from flask_jwt_extended import jwt_required, get_jwt_identity
 api = Namespace('users', description='User operations')
 
 # Define the user model for input validation and documentation
@@ -66,14 +67,20 @@ class UserResource(Resource):
     @api.expect(user_model, validate=True)
     @api.response(200, 'User retrieved successfully')
     @api.response(404, 'User not found')
+    @jwt_required()
     def put(self, user_id):
         """Update a user"""
+        current_user = get_jwt_identity()
         #first on retrouve le user
         user_inDB = facade.get_user(user_id)
         if not user_inDB:
             return "User not found", 404
+
+        if current_user != user_inDB.id:
+            return {'error': 'Unauthorized action'}, 403
+        
         # on update ce qu'il faut update
-            #on charge le user present dans la DB
+        #on charge le user present dans la DB
         updated_user = api.payload
             #on update les champs
         try:

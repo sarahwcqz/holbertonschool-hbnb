@@ -84,3 +84,10 @@ class HBnBFacade:
 
     def delete_review(self, review_id):
         return self.review_repo.delete(review_id)
+    
+    def get_review_by_user_and_place(self, place_id, user_id):
+        reviews = self.review_repo.get_all()
+        for review in reviews:
+            if review.user_id == user_id and review.place_id == place_id:
+                return review
+            return None
