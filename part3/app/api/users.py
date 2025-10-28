@@ -91,9 +91,6 @@ class UserResource(Resource):
             user_inDB.last_name = updated_user.get('last_name', user_inDB.last_name)
         except:
             return {"error": "Invalid input data"}, 400
-        try:
-            user_inDB.email = updated_user.get('email', user_inDB.email)
-        except:
-            return {"error": "Invalid input data"}, 400
-        return {'id': user_inDB.id, 'first_name': user_inDB.first_name, 'last_name': user_inDB.last_name, 'email': user_inDB.email}, 200
+
+        return {'id': user_inDB.id, 'first_name': user_inDB.first_name, 'last_name': user_inDB.last_name}, 200
     
