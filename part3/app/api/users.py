@@ -64,7 +64,7 @@ class UserResource(Resource):
         return {'id': user.id, 'first_name': user.first_name, 'last_name': user.last_name, 'email': user.email}, 200
     
 ########################## Update usr's info #############################
-    @api.expect(user_model, validate=True)
+    @api.expect(user_model)
     @api.response(200, 'User retrieved successfully')
     @api.response(404, 'User not found')
     @jwt_required()
@@ -78,7 +78,6 @@ class UserResource(Resource):
 
         if current_user != user_inDB.id:
             return {'error': 'Unauthorized action'}, 403
-        
         # on update ce qu'il faut update
         #on charge le user present dans la DB
         updated_user = api.payload
@@ -91,6 +90,8 @@ class UserResource(Resource):
             user_inDB.last_name = updated_user.get('last_name', user_inDB.last_name)
         except:
             return {"error": "Invalid input data"}, 400
-
-        return {'id': user_inDB.id, 'first_name': user_inDB.first_name, 'last_name': user_inDB.last_name}, 200
-    
+        
+        if 'email' in updated_user or 'password' in updated_user:
+            return {"error": "You cannot modify email or password."}, 400
+                
+        return {'id': user_inDB.id, 'first_name': user_inDB.first_name, 'last_name': user_inDB.last_name, 'email': user_inDB.email}, 200
