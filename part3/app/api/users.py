@@ -82,16 +82,13 @@ class UserResource(Resource):
         #on charge le user present dans la DB
         updated_user = api.payload
             #on update les champs
-        try:
-            user_inDB.first_name = updated_user.get('first_name', user_inDB.first_name)
-        except:
-            return {"error": "Invalid input data"}, 400
-        try:
-            user_inDB.last_name = updated_user.get('last_name', user_inDB.last_name)
-        except:
-            return {"error": "Invalid input data"}, 400
         
         if 'email' in updated_user or 'password' in updated_user:
             return {"error": "You cannot modify email or password."}, 400
+        
+        try:
+            facade.update_user(user_inDB.id, updated_user)
+        except:
+            return {"error": "Invalid input data"}, 400
                 
-        return {'id': user_inDB.id, 'first_name': user_inDB.first_name, 'last_name': user_inDB.last_name, 'email': user_inDB.email}, 200
+        return {'message': 'User updated successfully'}, 200

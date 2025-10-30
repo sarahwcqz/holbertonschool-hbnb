@@ -29,7 +29,8 @@ class HBnBFacade:
     def get_all(self):
         return self.user_repo.get_all()
 
-
+    def update_user(self, user_id, user_data):
+        return self.user_repo.update(user_id, user_data)
 # ------------------------- AMENITY --------------------
     def create_amenity(self, amenity_data):
         amenity = Amenity(**amenity_data)
