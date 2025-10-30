@@ -1,13 +1,14 @@
 from .BaseModel import BaseModel
 from app.extensions import db
-from sqlalchemy.orm import validates
-
+from sqlalchemy.orm import validates, relationship
+from .place import place_amenity
 
 class Amenity(BaseModel):
     __tablename__ = 'amenities'
 
     name = db.Column(db.String(50), nullable=False)
-    
+    places = relationship('Place', secondary=place_amenity, lazy='subquery', backref=db.backref('amenities', lazy=True))
+
     @validates('name')
     def validate_name(self, key, value):
         if not isinstance(value, str):
