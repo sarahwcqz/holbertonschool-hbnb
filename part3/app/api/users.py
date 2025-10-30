@@ -83,7 +83,6 @@ class UserResource(Resource):
         #on charge le user present dans la DB
         updated_user = api.payload
             #on update les champs
-        
         if 'email' in updated_user or 'password' in updated_user:
             return {"error": "You cannot modify email or password."}, 400
         for key, value in updated_user.items():
