@@ -10,7 +10,7 @@ class HBnBFacade:
         self.user_repo = UserRepository()
         self.place_repository = SQLAlchemyRepository(Place)
         self.review_repository = SQLAlchemyRepository(Review)
-        self.amenity_repository = SQLAlchemyRepository(Amenity)
+        self.amenity_repo = SQLAlchemyRepository(Amenity)
 
 
 # ----------------------- USER -------------------------
