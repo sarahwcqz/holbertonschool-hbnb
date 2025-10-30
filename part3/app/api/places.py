@@ -1,7 +1,7 @@
 from flask_restx import Namespace, Resource, fields
 from app.services import facade
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
-
+from app.extensions import db
 
 api = Namespace('places', description='Place operations')
 
@@ -25,8 +25,8 @@ place_model = api.model('Place', {
     'price': fields.Float(required=True, description='Price per night'),
     'latitude': fields.Float(required=True, description='Latitude of the place'),
     'longitude': fields.Float(required=True, description='Longitude of the place'),
-    'owner_id': fields.String(required=True, description='ID of the owner'),
-    'amenities': fields.List(fields.String, required=True, description="List of amenities ID's")
+    'owner_id': fields.String(required=True, description='ID of the owner')
+    #'amenities': fields.List(fields.String, required=True, description="List of amenities ID's")
 })
 
 
@@ -106,7 +106,7 @@ class PlaceResource(Resource):
         ####### lier amenities avec la place ########
 
 
-    @api.expect(place_model)
+    @api.expect(place_model, validate=True)
     @api.response(200, 'Place updated successfully')
     @api.response(404, 'Place not found')
     @api.response(400, 'Invalid input data')
@@ -128,8 +128,11 @@ class PlaceResource(Resource):
             return {'error': 'Unauthorized action'}, 403
         
         data = api.payload
+        for key, value in data.items():
+            if not hasattr(place_inDB, key):
+                return {"error": "Invalid input data"}, 400
         try:
-            facade.update_place(place_id, data)
+            facade.update_user(place_inDB.id, data)
         except:
             return {"error": "Invalid input data"}, 400
         return {'message': "Place updated successfully"}, 200
