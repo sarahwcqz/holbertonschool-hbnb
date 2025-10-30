@@ -1,5 +1,6 @@
 from flask_restx import Namespace, Resource, fields
 from app.services import facade
+from app.extensions import db
 
 api = Namespace('amenities', description='Amenity operations')
 
@@ -62,7 +63,8 @@ class AmenityResource(Resource):
         updated_amenity = api.payload
             #on update les champs
         try:
-            facade.update_amenity(amenity_inDB.id, updated_amenity)
+            amenity_inDB.name = updated_amenity.get('name', amenity_inDB.name)
         except:
             return {"error": "Invalid input data"}, 400
+        db.session.commit()
         return {'message': 'Amenity updated successfully'}, 200
