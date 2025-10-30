@@ -1,7 +1,7 @@
 from .BaseModel import BaseModel
 from app.extensions import bcrypt, db
 import re
-from sqlalchemy.orm import validates
+from sqlalchemy.orm import validates, relationship
 
 
 regex = re.compile(r'([A-Za-z0-9]+[.-_])*[A-Za-z0-9]+@[A-Za-z0-9-]+(\.[A-Z|a-z]{2,})+')
@@ -15,6 +15,8 @@ class User(BaseModel):
     email = db.Column(db.String(120), nullable=False, unique=True)
     password = db.Column(db.String(128), nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
+    places = relationship('Place', backref='user', lazy=True)
+    reviews= relationship('Review', backref='user', lazy=True)
 
 
     @validates('first_name')

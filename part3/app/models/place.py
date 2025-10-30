@@ -1,6 +1,7 @@
 from .BaseModel import BaseModel
 from app.extensions import db
-from sqlalchemy.orm import validates
+from sqlalchemy.orm import validates, relationship
+
 
 class Place(BaseModel):
     __tablename__ = 'places'
@@ -10,8 +11,10 @@ class Place(BaseModel):
     price = db.Column(db.Float, nullable=False)
     latitude = db.Column(db.Float, nullable=False)
     longitude = db.Column(db.Float, nullable=False)
-    owner_id = db.Column(db.String(60), nullable=False)
-    
+    owner_id = db.Column(db.String(60), db.ForeignKey('users.id') , nullable=False)
+    review = relationship('Review', backref='place', lazy=True)
+
+
     @validates("title")
     def validate_title(self, key, value):
         if not isinstance(value, str):
