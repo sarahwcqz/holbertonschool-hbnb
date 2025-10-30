@@ -1,7 +1,8 @@
 from flask import request
 from flask_restx import Namespace, Resource
-from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
+from flask_jwt_extended import jwt_required, get_jwt
 from app.services import facade
+from app.extensions import db
 
 api = Namespace('admin', description='Admin operations')
 
@@ -50,7 +51,9 @@ class AdminUserModify(Resource):
         user_inDB = facade.get_user(user_id)
         if not user_inDB:
             return "User not found", 404
-        
+        for key, value in data.items():
+            if not hasattr(user_inDB, key):
+                return {"error": "Invalid input data"}, 400
         try:
             user_inDB.first_name = data.get('first_name', user_inDB.first_name)
         except:
@@ -67,10 +70,11 @@ class AdminUserModify(Resource):
             new_password = data.get('password')
             if new_password:
                 user_inDB.hash_password(new_password)
-
         except:
             return {"error": "Invalid input data"}, 400
-        return {'id': user_inDB.id, 'first_name': user_inDB.first_name, 'last_name': user_inDB.last_name, 'email': user_inDB.email}, 200
+        
+        db.session.commit()
+        return {'id': user_inDB.id, 'first_name': user_inDB.first_name, 'last_name': user_inDB.last_name, 'email': user_inDB.email, 'pswd': user_inDB.password}, 200
     
 
 ################################ Admin: modify amenity ############################################
