@@ -101,15 +101,14 @@ class ReviewResource(Resource):
             return {'error': 'Unauthorized action'}, 403        
         
         data = api.payload
+        for key, value in data.items():
+            if not hasattr(review_inDB, key):
+                return {"error": "Invalid input data"}, 400
         try:
-            review_inDB.text = data.get('text', review_inDB.text)
-        except:
-            return {"error": "Invalid input data"}, 400
-        try:
-            review_inDB.rating = data.get('rating', review_inDB.rating)
-        except:
-            return {"error": "Invalid input data"}, 400
-        db.session.commit()
+            updated_review = facade.update_review(review_id, data)
+        except ValueError as e:
+            return {"error": str(e)}, 400
+        
         return {"message": "Review updated successfully"}, 200
     
 
