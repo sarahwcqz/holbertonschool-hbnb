@@ -7,7 +7,7 @@ class Amenity(BaseModel):
     __tablename__ = 'amenities'
 
     name = db.Column(db.String(50), nullable=False)
-    places = relationship('Place', secondary=place_amenity, lazy='subquery', backref=db.backref('amenities', lazy=True))
+    #places = relationship('Place', secondary=place_amenity, lazy='subquery', backref=db.backref('amenities', lazy=True))
 
     @validates('name')
     def validate_name(self, key, value):

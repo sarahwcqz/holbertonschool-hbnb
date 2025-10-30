@@ -16,7 +16,7 @@ class AmenityList(Resource):
     @api.expect(amenity_model)
     @api.response(201, 'Amenity successfully created')
     @api.response(400, 'Invalid input data')
-    @jwt_required
+    @jwt_required()
     def post(self):
         """Register a new amenity"""
         current_user = get_jwt()
