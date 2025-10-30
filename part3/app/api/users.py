@@ -86,15 +86,11 @@ class UserResource(Resource):
         
         if 'email' in updated_user or 'password' in updated_user:
             return {"error": "You cannot modify email or password."}, 400
-        
+        for key, value in updated_user.items():
+            if not hasattr(user_inDB, key):
+                return {"error": "Invalid input data"}, 400
         try:
-            user_inDB.first_name = updated_user.get('first_name', user_inDB.first_name)
+            facade.update_user(user_inDB.id, updated_user)
         except:
             return {"error": "Invalid input data"}, 400
-        try:
-            user_inDB.last_name = updated_user.get('last_name', user_inDB.last_name)
-        except:
-            return {"error": "Invalid input data"}, 400
-
-        db.session.commit()
         return {'message': 'User updated successfully'}, 200
