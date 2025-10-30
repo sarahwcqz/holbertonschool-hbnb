@@ -62,9 +62,11 @@ class AmenityResource(Resource):
             #on charge le user present dans la DB
         updated_amenity = api.payload
             #on update les champs
+        for key, value in updated_amenity.items():
+            if not hasattr(amenity_inDB, key):
+                return {"error": "Invalid input data"}, 400
         try:
-            amenity_inDB.name = updated_amenity.get('name', amenity_inDB.name)
+            facade.update_amenity(amenity_inDB.id, updated_amenity)
         except:
             return {"error": "Invalid input data"}, 400
-        db.session.commit()
         return {'message': 'Amenity updated successfully'}, 200
