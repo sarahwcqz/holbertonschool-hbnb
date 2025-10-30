@@ -92,6 +92,9 @@ class AdminAmenityModify(Resource):
         
         data = api.payload
 
+        for key, value in data.items():
+            if not hasattr(amenity_inDB, key):
+                return {"error": "Invalid input data"}, 400
         try:
             amenity_inDB.name = data.get('name', amenity_inDB.name)
         except:
