@@ -1,36 +1,30 @@
 from .BaseModel import BaseModel
+from app.extensions import db
+from sqlalchemy.orm import validates
 
 class Review(BaseModel):
-    def __init__(self, text, rating, place_id, user_id):
-        super().__init__()
-        self.text = text
-        self.rating = rating
-        self.place_id = place_id
-        self.user_id = user_id
+    __tablename__ = 'reviews'
+
+    text = db.Column(db.String(5000), nullable=False)
+    rating = db.Column(db.Integer, nullable=False)
+    place_id = db.Column(db.String(60), nullable=False)
+    user_id = db.Column(db.String(60), nullable=False)
 
 
-    @property
-    def text(self):
-        return self.__text
-    
-    @text.setter
-    def text(self, value):
+    @validates
+    def validates_text(self, key, value):
         if not isinstance(value, str):
             raise TypeError("Text must be a string")
         if not value:
             raise ValueError("Text can't be empty string")
-        self.__text = value
+        return value
 
 
-    @property
-    def rating(self):
-        return self.__rating
-    
-    @rating.setter
-    def rating(self, value):
+    @validates
+    def validates_rating(self, key, value):
         if not isinstance(value, int):
             raise TypeError("Rating must be an integer")
         if value < 1 or value > 5:
             raise ValueError("Rating must be from 1 to 5")
-        self.__rating = value
+        return value
         

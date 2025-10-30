@@ -3,6 +3,7 @@ from app.services import facade
 from app.api.users import user_model
 from app.api.amenities import amenity_model
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
+from app.extensions import db
 
 api = Namespace('reviews', description='Review operations')
 
@@ -55,7 +56,6 @@ class ReviewList(Resource):
             new_review = facade.create_review(review_data)
         except:
             return {"error": "Invalid input data"}, 400
-        place.add_review(new_review)
         return {'id': new_review.id, 'text': new_review.text, 'rating': new_review.rating, 'user_id': new_review.user_id, 'place_id': new_review.place_id}, 201
 
     @api.response(200, 'List of reviews retrieved successfully')
@@ -82,7 +82,7 @@ class ReviewResource(Resource):
             return {"error": "Review not found"}, 404
         return {'id': review.id, 'text': review.text, 'rating': review.rating, 'user_id': review.user_id, 'place_id': review.place_id}, 200
 
-    @api.expect(review_model)
+    @api.expect(review_model, validate=True)
     @api.response(200, 'Review updated successfully')
     @api.response(404, 'Review not found')
     @api.response(400, 'Invalid input data')
@@ -100,15 +100,15 @@ class ReviewResource(Resource):
         if not is_admin and review_inDB.user_id != current_user:
             return {'error': 'Unauthorized action'}, 403        
         
-        updated_review = api.payload
+        data = api.payload
+        for key, value in data.items():
+            if not hasattr(review_inDB, key):
+                return {"error": "Invalid input data"}, 400
         try:
-            review_inDB.text = updated_review.get('text', review_inDB.text)
-        except:
-            return {"error": "Invalid input data"}, 400
-        try:
-            review_inDB.rating = updated_review.get('rating', review_inDB.rating)
-        except:
-            return {"error": "Invalid input data"}, 400
+            updated_review = facade.update_review(review_id, data)
+        except ValueError as e:
+            return {"error": str(e)}, 400
+        
         return {"message": "Review updated successfully"}, 200
     
 
