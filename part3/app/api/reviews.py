@@ -105,9 +105,9 @@ class ReviewResource(Resource):
             if not hasattr(review_inDB, key):
                 return {"error": "Invalid input data"}, 400
         try:
-            updated_review = facade.update_review(review_id, data)
-        except ValueError as e:
-            return {"error": str(e)}, 400
+            facade.update_review(review_id, data)
+        except:
+            return {"error": "Invalid input data"}, 400
         
         return {"message": "Review updated successfully"}, 200
     
