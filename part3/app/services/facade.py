@@ -8,7 +8,7 @@ from app.persistence.UserRepository import UserRepository
 class HBnBFacade:
     def __init__(self):
         self.user_repo = UserRepository()
-        self.place_repository = SQLAlchemyRepository(Place)
+        self.place_repo = SQLAlchemyRepository(Place)
         self.review_repository = SQLAlchemyRepository(Review)
         self.amenity_repo = SQLAlchemyRepository(Amenity)
 

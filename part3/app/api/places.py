@@ -48,7 +48,7 @@ class PlaceList(Resource):
             new_place = facade.create_place(place_data)
         except:
             return {"error": "Invalid input data"}, 400
-
+        
         return {
             "id": new_place.id,
             'title': new_place.title,
@@ -126,17 +126,10 @@ class PlaceResource(Resource):
         # Vérifie que l'user actuel est l'owner ou un admin
         if not is_admin and place_inDB.owner_id != current_user:
             return {'error': 'Unauthorized action'}, 403
-        updated_place = api.payload
+        
+        data = api.payload
         try:
-            place_inDB.title = updated_place.get('title', place_inDB.title)
-        except:
-            return {"error": "Invalid input data"}, 400
-        try:
-            place_inDB.description = updated_place.get('description', place_inDB.description)
-        except:
-            return {"error": "Invalid input data"}, 400
-        try:
-            place_inDB.price = updated_place.get('price', place_inDB.price)
+            facade.update_place(place_id, data)
         except:
             return {"error": "Invalid input data"}, 400
         return {'message': "Place updated successfully"}, 200
