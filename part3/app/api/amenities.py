@@ -62,7 +62,7 @@ class AmenityResource(Resource):
         updated_amenity = api.payload
             #on update les champs
         try:
-            amenity_inDB.name = updated_amenity.get('name', amenity_inDB.name)
+            facade.update_amenity(amenity_inDB.id, updated_amenity)
         except:
             return {"error": "Invalid input data"}, 400
         return {'message': 'Amenity updated successfully'}, 200
