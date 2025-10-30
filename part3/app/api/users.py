@@ -2,6 +2,7 @@ from flask_restx import Namespace, Resource, fields
 from app.services import facade
 from flask import jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from app.extensions import db
 api = Namespace('users', description='User operations')
 
 # Define the user model for input validation and documentation
@@ -87,8 +88,13 @@ class UserResource(Resource):
             return {"error": "You cannot modify email or password."}, 400
         
         try:
-            facade.update_user(user_inDB.id, updated_user)
+            user_inDB.first_name = updated_user.get('first_name', user_inDB.first_name)
         except:
             return {"error": "Invalid input data"}, 400
-                
+        try:
+            user_inDB.last_name = updated_user.get('last_name', user_inDB.last_name)
+        except:
+            return {"error": "Invalid input data"}, 400
+
+        db.session.commit()
         return {'message': 'User updated successfully'}, 200
