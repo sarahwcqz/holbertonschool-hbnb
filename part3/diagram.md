@@ -41,4 +41,4 @@ erDiagram
     User ||--o{ Reviews : writes
     Place ||--o{ Reviews : has
     Place ||--o{ Place_amenity : has
-    Amenity ||--o{ Place_amenity : belongs to
+    Amenity ||--o{ Place_amenity : belongs_to
