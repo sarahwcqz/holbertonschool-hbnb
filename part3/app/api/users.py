@@ -1,7 +1,7 @@
 from flask_restx import Namespace, Resource, fields
 from app.services import facade
 from flask import jsonify
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from app.extensions import db
 api = Namespace('users', description='User operations')
 
@@ -72,19 +72,22 @@ class UserResource(Resource):
     def put(self, user_id):
         """Update a user"""
         current_user = get_jwt_identity()
+        admin = get_jwt()
         #first on retrouve le user
         user_inDB = facade.get_user(user_id)
         if not user_inDB:
             return "User not found", 404
 
-        if current_user != user_inDB.id:
+        if current_user != user_inDB.id and not admin.get("is_admin"):
             return {'error': 'Unauthorized action'}, 403
         # on update ce qu'il faut update
         #on charge le user present dans la DB
         updated_user = api.payload
             #on update les champs
-        if 'email' in updated_user or 'password' in updated_user:
-            return {"error": "You cannot modify email or password."}, 400
+        if not admin.get("is_admin"):
+            if 'email' in updated_user or 'password' in updated_user:
+                return {"error": "You cannot modify email or password."}, 400
+        
         for key, value in updated_user.items():
             if not hasattr(user_inDB, key):
                 return {"error": "Invalid input data"}, 400
