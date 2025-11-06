@@ -82,29 +82,26 @@ class PlaceResource(Resource):
         place = facade.get_place(place_id)
         if not place:
             return {'error': 'Place not found'}, 404
-        place_amenities = facade.get_amenities_of_place(place_id)
-        # on va chercher le place owner
-        place_owner = facade.get_user(place.owner_id)
-        return [
-            {"id": place.id,
+
+        amenities = place.amenities
+        owner = facade.get_user(place.owner_id)
+
+        return {
+            "id": place.id,
             "title": place.title,
             "description": place.description,
             "latitude": place.latitude,
             "longitude": place.longitude,
             "owner": {
-                'id': place_owner.id,
-                'first_name': place_owner.first_name,
-                'last_name': place_owner.last_name,
-                'email': place_owner.email
-                },
-            "amenities":[{
-                    "id": amenity.id,
-                    "name": amenity.name
-                } for amenity in place_amenities]
-                }], 200
-        
-        ####### lier amenities avec la place ########
-
+                "id": owner.id,
+                "first_name": owner.first_name,
+                "last_name": owner.last_name,
+                "email": owner.email
+            },
+            "amenities": [
+                {"id": a.id, "name": a.name} for a in amenities
+            ]
+        }, 200
 
     @api.expect(place_model, validate=True)
     @api.response(200, 'Place updated successfully')
@@ -136,7 +133,6 @@ class PlaceResource(Resource):
         except:
             return {"error": "Invalid input data"}, 400
         return {'message': "Place updated successfully"}, 200
-
 
 @api.route('/<place_id>/reviews')
 class PlaceReviewList(Resource):
