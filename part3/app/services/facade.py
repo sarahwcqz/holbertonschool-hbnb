@@ -4,6 +4,7 @@ from app.models.amenity import Amenity
 from app.models.place import Place
 from app.models.review import Review
 from app.persistence.UserRepository import UserRepository
+from app.extensions import db
 
 class HBnBFacade:
     def __init__(self):
@@ -61,11 +62,8 @@ class HBnBFacade:
 
     def update_place(self, place_id, place_data):
         return self.place_repo.update(place_id, place_data)
-    
-    def get_amenities_of_place(self, place_id):
-        amenities = [r for r in self.amenity_repo.get_all() if r.place_id == place_id]
-        return amenities
-    
+
+
 # ------------------------- Review --------------------
     def create_review(self, review_data):
         review = Review(**review_data)

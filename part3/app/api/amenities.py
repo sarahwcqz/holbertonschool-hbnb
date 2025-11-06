@@ -24,6 +24,12 @@ class AmenityList(Resource):
             return {'error': 'Admin privileges required'}, 403
         
         amenity_data = api.payload
+
+        all_amenities = facade.get_all_amenities()
+
+        for existing_name in all_amenities:
+                if (existing_name.name == amenity_data.get('name')):
+                    return {"error": "Amenity already exist"}
         try:
             new_amenity = facade.create_amenity(amenity_data)
         except:
@@ -59,9 +65,14 @@ class AmenityResource(Resource):
     @api.response(200, 'Amenity updated successfully')
     @api.response(404, 'Amenity not found')
     @api.response(400, 'Invalid input data')
+    @jwt_required()
     def put(self, amenity_id):
         """Update an amenity's information"""
         #first on retrouve l'amenity'
+        current_user = get_jwt()
+        if not current_user.get('is_admin'):
+            return {'error': 'Admin privileges required'}, 403
+        
         amenity_inDB = facade.get_amenity(amenity_id)
         if not amenity_inDB:
             return {'error': "Amenity not found"}, 404
