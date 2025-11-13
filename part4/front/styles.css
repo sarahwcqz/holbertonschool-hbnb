@@ -1,0 +1,245 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    color: #1d1b1b;
+    font-family: Arial, sans-serif;
+    background-image: url("images/background-body2.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+
+/* =================================== HEADER ====================================== */
+
+header {
+    margin: 1rem;
+
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.slogan {
+    padding: 1rem;
+    border-radius: 25px;
+    background-color: #F8C908;
+    color: black;
+    font-family: "Papyrus", "Comic Sans MS";
+    font-size: x-large;
+    font-weight: bold;
+    text-shadow: 0 0 8px #ff00aa, 0 0 20px #00b2ff;
+    text-align: justify;
+}
+
+.icon img {
+    display: block;
+}
+
+/* ------------------ NAV --------------------------- */
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    background-color: #0772de;
+    padding: 1rem;
+    border: solid black 2px;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    background: radial-gradient(circle at top left, #ff00aa, #ffea00);
+    box-shadow: 0 0 12px #ff00aa, 0 0 30px #00b2ff inset;
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+nav a:hover {
+    transform: scale(1.1) rotate(-2deg);
+    box-shadow: 0 0 25px #fff, 0 0 40px #ff00aa inset;
+}
+
+
+/* =================================== MAIN ======================================== */
+
+main {
+    padding: 1rem;
+}
+
+
+/* ==================================== FOOTER ====================================== */
+
+
+/* -------------------------------- CRINGEBOX ----------------------------- */
+.cringebox {
+    color: #fff;
+    text-shadow: 0 0 8px #ff00aa, 0 0 20px #00b2ff;
+    margin: 30px;
+    text-align: center;
+}
+
+
+#jukebox {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.jukebox-btn {
+    background: radial-gradient(circle at top left, #ff00aa, #ffea00);
+    border: none;
+    border-radius: 30px;
+    padding: 12px 25px;
+    font-size: 1rem;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 12px #ff00aa, 0 0 30px #00b2ff inset;
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.jukebox-btn:hover {
+    transform: scale(1.1) rotate(-2deg);
+    box-shadow: 0 0 25px #fff, 0 0 40px #ff00aa inset;
+}
+
+.jukebox-btn.active {
+    background: radial-gradient(circle at bottom right, #00ffcc, #ff00ff);
+    box-shadow: 0 0 20px #fff, 0 0 30px #00ffcc inset;
+    animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.08);
+    }
+}
+
+/* --------------------------------IMAGES ------------------------- */
+
+.footer-images {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 150px;
+    background-color: #0772de;
+    margin: 1rem;
+    padding: 1rem;
+    border: solid black 2px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+.footer-images .top-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.footer-images p {
+    margin-top: 0.5rem;
+    text-align: left;
+    width: 100%;
+    padding-left: 10px;
+}
+
+.footer-images .footer-emojis {
+    margin-top: auto;
+}
+
+
+/* =====================================================================*/
+/* =========================== Pages specifics =========================*/
+/* =====================================================================*/
+
+
+/*------------------------------------ INDEX.HTML ----------------------------------*/
+
+#filter {
+    border: solid black 2px;
+    border-radius: 7px;
+    background-color: #F8C908;
+    padding: 1rem;
+}
+
+#places-list {
+    border: solid black 2px;
+    border-radius: 7px;
+    margin-top: 0.5rem;
+    padding: 1rem;
+}
+
+.place-card{
+        /* the following is required, do not change it girl */
+    margin: 20px;
+    /* sorry I removed the padding 10px but it didn't follow la DA */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    /*now you can have fun */
+    background-image: url("images/background-cards1.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.place-card h2 {
+    background-color: #F8C908;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 1rem;
+}
+
+
+
+/*------------------------------------ PLACE.HTML ----------------------------------*/
+
+
+
+.review-card {
+    /* the following is required, do not change it girl */
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    /*now you can have fun */
+    background-image: url("images/background-cards1.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
