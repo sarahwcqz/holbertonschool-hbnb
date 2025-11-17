@@ -1,5 +1,7 @@
 from flask import Flask
 
+from flask_cors import CORS
+
 import config
 
 from app.extensions import bcrypt, jwt, db
@@ -30,4 +32,6 @@ def create_app(config_class=config.DevelopmentConfig):
     api.add_namespace(auth_ns, path='/api/v1/auth')
     api.add_namespace(admin_ns, path='/api/v1/admin')
 
+    CORS(app)
+    
     return app

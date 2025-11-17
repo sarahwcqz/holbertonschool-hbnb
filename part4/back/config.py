@@ -6,7 +6,8 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///development.db'
+    #SQLALCHEMY_DATABASE_URI = 'sqlite:///instance/development.db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)), 'instance', 'development.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 
