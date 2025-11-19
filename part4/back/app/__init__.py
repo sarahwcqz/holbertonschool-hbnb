@@ -32,6 +32,12 @@ def create_app(config_class=config.DevelopmentConfig):
     api.add_namespace(auth_ns, path='/api/v1/auth')
     api.add_namespace(admin_ns, path='/api/v1/admin')
 
-    CORS(app)
+    CORS(
+        app,
+        origins=["http://localhost:5500"],
+        supports_credentials=True,
+        methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+        allow_headers=["Content-Type", "Authorization"]
+    )
     
     return app

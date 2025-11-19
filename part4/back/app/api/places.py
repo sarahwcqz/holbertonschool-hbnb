@@ -67,8 +67,10 @@ class PlaceList(Resource):
             {
                 "id": all_places_items.id,
                 "title": all_places_items.title,
+                "description": all_places_items.description,
+                "price": all_places_items.price,
                 "latitude": all_places_items.latitude,
-                "longitude": all_places_items.longitude
+                "longitude": all_places_items.longitude,
             }
             for all_places_items in all_places
         ], 200
@@ -90,6 +92,7 @@ class PlaceResource(Resource):
             "id": place.id,
             "title": place.title,
             "description": place.description,
+            "price": place.price,
             "latitude": place.latitude,
             "longitude": place.longitude,
             "owner": {

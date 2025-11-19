@@ -28,6 +28,7 @@
         <nav>
             <a href="login.html" class="login-button">Login</a>
             <a href="index.html">Home</a>
+            <a href="index.html" class="logout-button" style="display:none;">Logout</a>
         </nav>
 
 
@@ -41,26 +42,16 @@
         <section id="filter">
             <label for="price-filter">Max Price:</label>
             <select id="price-filter">
-                <!-- Options will be populated dynamically -->
+                <option value="all">All</option>
+                <option value="10">10</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
             </select>
         </section>
 
 
         <!--------------------------PLACE LIST------------------------->
         <section id="places-list">
-            <article class="place-card">
-                <h2>Name</h2>
-                <div class="content">
-                    <img src="" alt="place's image">
-                    <p>Description kvjbekrjvbaekjsbvk</p>
-                </div>
-
-                <div class="buttons">
-                    <p class="price">Price</p>
-                    <button class="details-button">View Details</button>
-                </div>
-            </article>
-
         </section>
     </main>
 
@@ -103,7 +94,9 @@
 
     </footer>
 
-    <script src="js/script.js"></script>
+
+    <script type="module" src="js/index.js"></script>
+    <script src="js/footer.js"></script>
 </body>
 
 </html>
