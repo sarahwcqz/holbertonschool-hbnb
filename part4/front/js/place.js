@@ -2,13 +2,7 @@
 /*============================================= FUNCTIONS =====================================================*/
 
 import { checkAuthentication } from './checkAuth.js';
-
-
-/* =================================== get place_id from URL ================================ */
-function getPlaceIdFromURL() {
-    const params = new URLSearchParams(window.location.search);
-    return params.get('id');
-}
+import { getPlaceIdFromURL } from './IdFromURL.js';
 
 
 /* ===================================fetch place details ==================================== */
@@ -138,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     addReviewBtn.addEventListener('click', () => {
-        window.location.href = `add_review.html?place_id=${placeId}`;
+        window.location.href = `add_review.html?id=${placeId}`;
     });
 
 })

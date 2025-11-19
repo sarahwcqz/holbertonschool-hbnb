@@ -37,15 +37,33 @@
 
 
     <!--============================================MAIN==================================-->
+
     <main>
-        <!-- Add something to idfentify the place you're reviewing -->
+
+        <!----------------------------NOT LOOGED IN------------------------->
+        <div id="not-logged-in" style="display:none">
+            <img src="images/loose-face.jpg" alt="creepy face">
+            <p>You must be logged in to add a review.</p>
+            <a href="login.html"><button>Login</button></a>
+        </div>
+
+
+
+
+
+        <!---------------------------- LOGGED IN----------------------------->
+
         <form id="review-form">
             <h2>Add a Review</h2>
             <label for="review">Your Review:</label>
             <textarea id="review" name="review" required></textarea>
             <label for="rating">Rating:</label>
             <select id="rating" name="rating" required>
-                <!-- Options for rating -->
+                <option value="1">💀</option>
+                <option value="2">🤮</option>
+                <option value="3">🫠</option>
+                <option value="4">🤡</option>
+                <option value="5">✨</option>
             </select>
             <button type="submit">Submit Review</button>
         </form>
@@ -89,8 +107,8 @@
     </footer>
 
 
-    <script src="js/checkAuth.js"></script>
-    <script src="js/addReview.js"></script>
+
+    <script type="module" src="js/addReview.js"></script>
     <script src="js/footer.js"></script>
 </body>
 

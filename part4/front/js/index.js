@@ -104,9 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
     //verif auth and gets token
     const token = checkAuthentication();
 
-    // --- DEBUG: vérifier si token est présent
-    console.log('Token from checkAuthentication:', token);
-
     // Fetch places data if the user is authenticated
     if (token) {
         fetchPlaces(token);
