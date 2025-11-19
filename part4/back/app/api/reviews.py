@@ -27,7 +27,7 @@ place_model = api.model('Place', {
     'reviews': fields.List(fields.Nested(review_model), description='List of reviews')
 })
 
-@api.route('/')
+@api.route('/', strict_slashes=False)
 class ReviewList(Resource):
     @api.expect(review_model)
     @api.response(201, 'Review successfully created')
@@ -42,9 +42,11 @@ class ReviewList(Resource):
         place = facade.get_place(review_data.get("place_id"))
         if not place:
             return {"error": "Place not found"}, 404
-        review_owner = facade.get_user(review_data.get("user_id"))
-        if not review_owner:
-            return {"error": "User not found"}, 404
+        
+        # changed that
+        # review_owner = facade.get_user(review_data.get("user_id"))
+        #if not review_owner:
+        #    return {"error": "User not found"}, 404
         
         if current_user == place.owner_id:
             return {"error": "You cannot review your own place."}, 400
@@ -53,7 +55,13 @@ class ReviewList(Resource):
         if existing_review:
             return {"error": "You have already reviewed this place."}, 400
         try:
-            new_review = facade.create_review(review_data)
+            # changed that too (before => new_review = facade.create_review(data))
+            new_review = facade.create_review({
+                    "text": review_data["text"],
+                    "rating": review_data["rating"],
+                    "place_id": review_data["place_id"],
+                    "user_id": current_user
+            })
         except:
             return {"error": "Invalid input data"}, 400
         return {'id': new_review.id, 'text': new_review.text, 'rating': new_review.rating, 'user_id': new_review.user_id, 'place_id': new_review.place_id}, 201

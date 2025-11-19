@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
-            const resp = await fetch('http://localhost:5000/api/v1/reviews', {
+            const resp = await fetch('http://localhost:5000/api/v1/reviews/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
