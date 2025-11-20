@@ -19,6 +19,8 @@ async function fetchPlaceDetails(token, placeId) {
         return;
     }
     const placeDetails = await response.json();
+    // DEBUG
+    console.log(placeDetails);
     displayPlaceDetails(placeDetails)
 }
 
@@ -26,35 +28,34 @@ async function fetchPlaceDetails(token, placeId) {
 /* ======================================== display place's details ========================== */
 function displayPlaceDetails(place) {
     const placeDetails = document.querySelector('.place-details');
-    // Clear the current content of the place details section
-    placeDetails.innerHTML = "";
+    const reviewsSection = document.getElementById('reviews');
 
-    // Create elements to display the place details (name, description, price, amenities and reviews)
-    /* --------------------------- title ------------------------------ */
+    // Clear previous content
+    placeDetails.innerHTML = "";
+    reviewsSection.innerHTML = "";
+
+    /* --------------------------------------- PLACE ------------------------------- */
+    /* ....................................... Title ............................... */
     const title = document.createElement('h1');
     title.classList.add("place-title");
     title.textContent = place.title;
 
-    /* -------------------------------------- place-info --------------------------------- */
+    /* ....................................... Place info ........................... */
     const infoDiv = document.createElement('div');
     infoDiv.classList.add('place-info');
 
-    /*....................................... host ....................................... */
     const fullName = place.owner.first_name + " " + place.owner.last_name;
     const host = document.createElement('p');
-    host.innerHTML = `<strong>Host :</strong> ${fullName}`;
+    host.innerHTML = `<strong>Host:</strong> ${fullName}`;
 
-    /* ....................................... price ...................................... */
     const price = document.createElement('p');
-    price.innerHTML = `<strong>Price per night :</strong> ${place.price} $`;
+    price.innerHTML = `<strong>Price per night:</strong> ${place.price} $`;
 
-    /* ....................................... description ................................ */
     const descr = document.createElement('p');
-    descr.innerHTML = `<strong>Description :</strong> ${place.description}`;
+    descr.innerHTML = `<strong>Description:</strong> ${place.description}`;
 
-    /* ........................................ amenities ................................. */
     const amenities = document.createElement('p');
-    amenities.innerHTML = `<strong>Amenities :</strong>`;
+    amenities.innerHTML = `<strong>Amenities:</strong>`;
 
     const list = document.createElement('ul');
     place.amenities.forEach(am => {
@@ -63,15 +64,24 @@ function displayPlaceDetails(place) {
         list.appendChild(li);
     });
 
+    // Append info to infoDiv
+    infoDiv.appendChild(host);
+    infoDiv.appendChild(price);
+    infoDiv.appendChild(descr);
+    infoDiv.appendChild(amenities);
+    infoDiv.appendChild(list);
 
-    /* --------------------------- reviews ------------------------------                       <= to be implemented (verif names)
-    reviewsSection.classList.add("reviews-section");
+    // Append title and infoDiv to main place details section
+    placeDetails.appendChild(title);
+    placeDetails.appendChild(infoDiv);
 
+
+    /* ------------------------------------- REVIEWS -------------------------------------- */
     const reviewsTitle = document.createElement('h2');
     reviewsTitle.textContent = "Reviews";
     reviewsSection.appendChild(reviewsTitle);
 
-    if (place.reviews.length === 0) {
+    if (!place.reviews || place.reviews.length === 0) {
         const noRev = document.createElement('p');
         noRev.textContent = "No reviews yet.";
         reviewsSection.appendChild(noRev);
@@ -80,35 +90,32 @@ function displayPlaceDetails(place) {
             const card = document.createElement('article');
             card.classList.add('review-card');
 
-            const user = document.createElement('p');
-            user.innerHTML = `<strong>User :</strong> ${rev.user.first_name} ${rev.user.last_name}`;
+            const topRow = document.createElement('div');
+            topRow.classList.add('top-row');
+
+            const user = document.createElement('h3');
+            user.classList.add('review-user');
+            user.textContent = `👁️ ${rev.user.first_name} ${rev.user.last_name}`;
 
             const rating = document.createElement('p');
-            rating.innerHTML = `<strong>Rating :</strong> ${rev.rating}`;
+            rating.classList.add('review-rating');
+            rating.textContent = `Rating: ${rev.rating}`;
+
+            topRow.appendChild(user);
+            topRow.appendChild(rating);
 
             const comment = document.createElement('p');
-            comment.innerHTML = `<strong>Comment :</strong> ${rev.comment}`;
+            comment.classList.add('review-comment');
+            comment.textContent = rev.text;
 
-            card.appendChild(user);
-            card.appendChild(rating);
+            card.appendChild(topRow);
             card.appendChild(comment);
 
             reviewsSection.appendChild(card);
-        });  */
-
-    // Append the created elements to the place details section
-    infoDiv.appendChild(host);
-    infoDiv.appendChild(price);
-    infoDiv.appendChild(descr);
-    infoDiv.appendChild(amenities);
-    infoDiv.appendChild(list);
-
-    placeDetails.appendChild(title);
-    placeDetails.appendChild(infoDiv);
-    /*
-    placeDetails.appendChild(reviewsSection);                            <= to be implemented */
-
+        });
+    }
 }
+
 
 /* ==================================================================================================*/
 /* =========================================== EXECUTION =========================================== */
@@ -116,8 +123,12 @@ function displayPlaceDetails(place) {
 document.addEventListener('DOMContentLoaded', () => {
 
     const token = checkAuthentication();
+    // DEBUG
+    console.log("Token:", token);
 
     const placeId = getPlaceIdFromURL();
+    //DEBUG
+    console.log("Place ID:", placeId);
 
     const addReview = document.getElementById('add-review');
     const addReviewBtn = document.getElementById('add-review-btn');
