@@ -13,7 +13,7 @@ window.addEventListener("DOMContentLoaded", () => {
         player.addEventListener("loadedmetadata", () => {
             if (savedTime) player.currentTime = parseFloat(savedTime);
 
-            if (wasPlaying) player.play().catch(() => {});
+            if (wasPlaying) player.play().catch(() => { });
         });
     }
 });
@@ -26,16 +26,26 @@ window.addEventListener("beforeunload", () => {
 
 // ================== PLAY MUSIC ==================
 function playMusic(file, btn) {
-    // Change source only if new file
-    if (player.src.includes(file) === false) {
-        player.src = file;
-        localStorage.setItem("jukebox-track", file);
-        localStorage.setItem("jukebox-time", 0);
+    const isSameTrack = player.src.endsWith(file);
+
+    // Same track: toggle play/pause
+    if (isSameTrack) {
+        if (player.paused) {
+            player.play();
+            localStorage.setItem("jukebox-playing", true);
+        } else {
+            player.pause();
+            localStorage.setItem("jukebox-playing", false);
+        }
+        return;
     }
 
-    // Play
-    player.play();
+    // New track: load & play
+    player.src = file;
+    localStorage.setItem("jukebox-track", file);
+    localStorage.setItem("jukebox-time", 0);
 
-    // Save play state
+    player.play();
     localStorage.setItem("jukebox-playing", true);
 }
+
