@@ -102,16 +102,16 @@ I did most of the tests directly from the webpage, checking in the same time in 
 
 ### Post a review
 - For example, I tried to log in as Shaggy Rogers, and to post a review for the Doll House from the website.
-![POSTreview](images/POST_review.png)
+![POSTreview](front/images/POST_review.png)
 - First let's check that it is correctly added to the DB;
-![Reviews-in-DB](images/Reviews-DollHouse.png)
+![Reviews-in-DB](front/images/Reviews-DollHouse.png)
 - Now we can see it on the webpage.
-![GETreviews](images/GET-review.png)
+![GETreviews](front/images/GET_review.png)
 
 - If you are not logged in as a user, you'll see this message:
-![review-message-if-not-logged](images/rev-not-logged.png)
+![review-message-if-not-logged](front/images/rev-not_logged.png)
 
 - On the same principle, if you are not logged, you won't have acces to the main content, and you'll see a message inviting you to login.
 
 - The page to log in checks if you're credentials are valid, and if so, redirects you to the main page, with the places available.
-![login-form](images/login-form.png)
+![login-form](front/images/login-form.png)
