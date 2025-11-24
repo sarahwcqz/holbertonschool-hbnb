@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CringeBnb - Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="images/favicon-96x96.png">
+</head>
+
+<body>
+
+    <!--==========================================HEADER========================================-->
+    <header>
+        <div class="header-top">
+            <div class="logo">
+                <img src="images/logo.png" height="67px" width="467px" alt="CringBnb logo">
+                <p class="slogan">Where too much isn't quite enough! 💀 ✨</p>
+            </div>
+
+            <div class="icon">
+                <img src="images/icon.png" height="150px" width="134px" alt="CringBnb icon">
+            </div>
+        </div>
+
+        <!-----------------------------------NAV------------------------------------->
+        <nav>
+            <a href="login.html" class="login-button">Login</a>
+            <a href="index.html">Home</a>
+            <a href="index.html" class="logout-button" style="display:none;">Logout</a>
+        </nav>
+
+                    <img class="footer-emojis" src="images/emojis.png" alt="Emojis">
+
+
+    </header>
+
+
+    <!--============================================MAIN==================================-->
+    <main>
+
+        <!----------------------------FILTER-------------------------->
+        <section id="filter">
+            <label for="price-filter">Max Price:</label>
+            <select id="price-filter">
+                <option value="all">All</option>
+                <option value="10">10</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
+        </section>
+
+
+        <!--------------------------PLACE LIST------------------------->
+        <section id="places-list">
+        </section>
+    </main>
+
+
+
+    <!--=======================================FOOTER=============================-->
+    <footer>
+        <!----------------------------------JUKEBOXE-------------------------------->
+
+        <div class="cringebox">
+            <h2>💿 Cringebox 3000 — Choose your mood ✨</h2>
+
+            <!-- Jukebox Buttons -->
+            <div id="jukebox" style="display:flex; flex-wrap:wrap; justify-content:center; gap:15px;">
+                <button class="jukebox-btn"
+                    onclick="playMusic('music/Prisoner_Of_Love-Biesmans_&_Vandesande.mp3', this)">🌈 Prisoner of Love
+                    🌈</button>
+                <button class="jukebox-btn"
+                    onclick="playMusic('music/Not My_Mind,_Not_My_Planet-Rhode_&_Brown.mp3', this)">🌔 Not my Mind, Not
+                    my Planet
+                    🌔</button>
+                <button class="jukebox-btn" onclick="playMusic('music/Quilting-Brandsky.mp3', this)">💔 Quitling
+                    💔</button>
+                <button class="jukebox-btn" onclick="playMusic('music/Mouissie-Therapy.mp3', this)">🦄 Therapy
+                    🦄</button>
+                <button class="jukebox-btn" onclick="playMusic('music/Vitalic-Cosmic_Renegade.mp3', this)">🏄‍♀️ Cosmic
+                    Renegade
+                    🏄‍♀️</button>
+            </div>
+        </div>
+
+        <audio id="player" loop></audio>
+
+        <img class="footer-emojis" src="images/emojis.png" alt="Emojis">
+
+        <!----------------------------------IMAGES---------------------------->
+        <div class="footer-images">
+
+            <div class="top-row">
+                <div class="left-block">
+                    <img class="logo" src="images/logo.png" height="67px" width="467px" alt="CringeBnb logo">
+                    <p>All rights reserved.
+                        <br>
+                        Based on a true story.
+                    </p>
+                </div>
+                <img class="icon" src="images/icon.png" height="150px" width="134px" alt="CringBnb icon">
+            </div>
+
+
+        </div>
+
+
+    </footer>
+
+    <script src="js/jukebox.js"></script>
+    <script type="module" src="js/index.js"></script>
+    <script src="js/footer.js"></script>
+</body>
+
+</html>
