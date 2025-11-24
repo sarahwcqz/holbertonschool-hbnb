@@ -205,8 +205,10 @@ main {
     padding-left: 0;
 }
 
-.footer-images .footer-emojis {
-    margin-top: auto;
+.footer-emojis {
+    margin: 5px;
+    max-width: 100%;
+    height: auto;
 }
 
 
