@@ -1,10 +1,3 @@
--- create_tables.sql
-
--- suppress if existing, to be removed!!!
-
-DROP TABLE IF EXISTS places;
-
-
 -- Users table
 CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY,
