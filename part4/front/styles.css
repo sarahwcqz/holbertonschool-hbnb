@@ -404,7 +404,7 @@ main {
 
 .place-image {
     margin: 30px;
-    border: solid black 2px;
+    border: solid #000000 2px;
     border-radius: 30px;
     max-height: 500px;
     max-width: 66%;
