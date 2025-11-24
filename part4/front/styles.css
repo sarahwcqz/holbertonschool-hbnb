@@ -2,7 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    border: solid red;
+    /*   border: solid red; */
 }
 
 html {
@@ -11,7 +11,9 @@ html {
 
 body {
     color: #1d1b1b;
-    font-family: Arial, sans-serif;
+    font-family: "Papyrus", "Comic Sans MS", cursive;
+    text-shadow: 0 0 8px #ff00aa, 0 0 20px #00b2ff;
+    font-weight: bold;
     background-image: url("images/background-body2.png");
     background-size: cover;
     background-position: center;
@@ -49,7 +51,8 @@ header {
 }
 
 .slogan {
-    padding: 1rem;
+    padding: 1.5rem;
+    border: solid black 2px;
     border-radius: 25px;
     background-color: #F8C908;
     color: black;
@@ -215,26 +218,32 @@ main {
 /*------------------------------------ INDEX.HTML ----------------------------------*/
 
 #filter {
-    border: solid black 2px;
-    border-radius: 7px;
-    background-color: #F8C908;
     padding: 1rem;
+    text-shadow: 0 0 8px #ff00aa, 0 0 20px #00b2ff;
 }
 
+#filter label {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+#filter select {
+    font-size: 1.2rem;
+    padding: 0.3rem 0.5rem;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+
 #places-list {
-    border: solid black 2px;
-    border-radius: 7px;
     margin-top: 0.5rem;
     padding: 1rem;
 }
 
 .place-card {
-    /* the following is required, do not change it girl */
     margin: 20px;
-    /* sorry I removed the padding 10px but it didn't follow la DA */
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    /*now you can have fun */
+    border: 2px solid black;
+    border-radius: 20px;
     background-image: url("images/background-cards1.png");
     background-size: cover;
     background-position: center;
@@ -247,9 +256,11 @@ main {
 }
 
 .place-card h2 {
-    background-color: #F8C908;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    background-color: #00FF7F;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    border-bottom: solid black 2px;
+    text-align: center;
     padding: 1rem;
     margin: 0;
 }
@@ -262,11 +273,12 @@ main {
     padding: 0 1rem;
 }
 
-.place-card .content img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
+.place-card p {
+    margin: 20px;
+    font-size: large;
+    max-width: 80%;
 }
+
 
 .place-card .buttons {
     display: flex;
@@ -302,10 +314,127 @@ main {
     box-shadow: 0 0 25px #fff, 0 0 40px #ff00aa inset;
 }
 
+/* --------------------------- if not logged ----------------------------- */
+
+.not-logged-in-card {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    border: 2px solid black;
+    border-radius: 25px;
+    background-image: url('images/background-cards2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    box-shadow: 0 0 15px #ff00aa, 0 0 30px #00b2ff inset;
+    text-align: center;
+}
+
+.not-logged-in-card img {
+    max-width: 400px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 0 15px #ff00aa, 0 0 30px #00b2ff inset;
+}
+
+.not-logged-in-text {
+    margin: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: black;
+    text-shadow: 0 0 8px #ff00aa, 0 0 20px #00b2ff;
+}
+
+.not-logged-in-btn {
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background: radial-gradient(circle at top left, #ff00aa, #ffea00);
+    border: 2px solid black;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 0 12px #ff00aa, 0 0 30px #00b2ff inset;
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+.not-logged-in-btn:hover {
+    transform: scale(1.05) rotate(-2deg);
+    box-shadow: 0 0 25px #fff, 0 0 40px #ff00aa inset;
+}
+
 
 /*------------------------------------ PLACE.HTML ----------------------------------*/
 
+/*............................ place .......................*/
 
+.place-details {
+    border: solid black 2px;
+    border-radius: 10px;
+    background-image: url("images/background-cards1.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.place-details .place-title {
+    padding: 1rem 3rem 1rem 3rem;
+    margin: -2px -1px 0 -1px;
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    background-color: #00FF7F;
+    border: solid black 2px;
+    border-radius: 10px 10px 2px 2px;
+}
+
+.place-image {
+    margin: 30px;
+    border: solid black 2px;
+    border-radius: 30px;
+    max-height: 500px;
+    max-width: 66%;
+    height: auto;
+    width: auto;
+}
+
+.place-details .place-info {
+    margin: 20px;
+    padding: 10px 30px 10px 30px;
+    max-width: 70%;
+}
+
+.place-info p {
+    margin: 10px;
+    font-size: large;
+}
+
+.place-info ul {
+    margin-left: 40px;
+}
+
+/*............................ reviews .....................*/
+
+
+#reviews h2 {
+    background-color: #FF69B4;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 2rem;
+    border: solid black 3px;
+    border-radius: 20px 20px 5px 5px;
+    text-shadow: 0 0 10px #ff00aa, 0 0 20px #ff69b4;
+    max-width: 66%;
+    margin: 20px auto 20px auto;
+}
 
 .review-card {
     /* the following is required, do not change it girl */
@@ -322,6 +451,23 @@ main {
     display: flex;
     flex-direction: column;
     max-width: 66%;
+}
+
+/* no reviews */
+
+.review-card img {
+    display: block;
+    margin: 20px auto;
+    max-width: 700px;
+    height: auto;
+    border-radius: 20px;
+}
+
+.no-review-comment {
+    text-align: center;
+    margin: 20px;
+    font-size: xx-large;
+    color: #ddd;
 }
 
 .review-card .top-row {
@@ -341,6 +487,225 @@ main {
 }
 
 .review-comment {
-        padding-top: 15px;
-        padding-bottom: 5px;
+    padding-top: 15px;
+    padding-bottom: 5px;
+}
+
+/*...............................add review............................ */
+
+#add-review {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 20px 0;
+    text-align: center;
+}
+
+#add-review-btn {
+    display: inline-block;
+    background-color: #FF69B4;
+    color: #fff;
+    border: solid black 2px;
+    border-radius: 15px;
+    padding: 10px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 0 15px #ff69b4 inset;
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+#add-review-btn:hover {
+    transform: scale(1.05) rotate(-1deg);
+    box-shadow: 0 0 20px #fff inset;
+}
+
+
+
+/*-----------------------------------ADD-REVIEW -----------------------------------------*/
+
+/* --------------------- If user looged in -------------------------- */
+#review-form {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    border: 2px solid black;
+    border-radius: 25px;
+    background-image: url('images/background-cards2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 0 15px #ff00aa, 0 0 30px #00b2ff inset;
+}
+
+#review-form h2 {
+    text-align: center;
+    color: black;
+    text-shadow: 0 0 8px #ff00aa, 0 0 20px #00b2ff;
+    margin-bottom: 10px;
+}
+
+#review-form label {
+    font-weight: bold;
+    color: #1d1b1b;
+}
+
+#review-form textarea,
+#review-form select {
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 15px;
+    font-size: 1rem;
+    width: 100%;
+    resize: vertical;
+}
+
+#review-form button[type="submit"] {
+    align-self: center;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background: radial-gradient(circle at top left, #ff00aa, #ffea00);
+    border: 2px solid black;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 0 12px #ff00aa, 0 0 30px #00b2ff inset;
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+#review-form button[type="submit"]:hover {
+    transform: scale(1.05) rotate(-2deg);
+    box-shadow: 0 0 25px #fff, 0 0 40px #ff00aa inset;
+}
+
+/* ----------------------------- if user not logged ----------------------- */
+/* Bloc "user not logged in" */
+#not-logged-in {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    border: 2px solid black;
+    border-radius: 25px;
+    background-image: url('images/background-cards2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    box-shadow: 0 0 15px #ff00aa, 0 0 30px #00b2ff inset;
+    text-align: center;
+}
+
+#not-logged-in img {
+    max-width: 400px;
+    width: 80%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 0 10px #ff00aa, 0 0 20px #00b2ff inset;
+}
+
+#not-logged-in p {
+    margin: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: black;
+    text-shadow: 0 0 8px #ff00aa, 0 0 20px #00b2ff;
+}
+
+#not-logged-in button {
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background: radial-gradient(circle at top left, #ff00aa, #ffea00);
+    border: 2px solid black;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 0 12px #ff00aa, 0 0 30px #00b2ff inset;
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+#not-logged-in button:hover {
+    transform: scale(1.05) rotate(-2deg);
+    box-shadow: 0 0 25px #fff, 0 0 40px #ff00aa inset;
+}
+
+
+
+/*----------------------------------------- LOGIN ------------------------------------- */
+
+#login-form {
+    max-width: 1000px;
+    max-height: 100vh;
+    margin: 40px auto;
+    padding: 20px;
+    border: 2px solid black;
+    border-radius: 25px;
+    background-image: url('images/background-cards2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    box-shadow: 0 0 15px #ff00aa, 0 0 30px #00b2ff inset;
+    overflow: hidden;
+}
+
+#login-form img {
+    width: 40%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 15px;
+}
+
+#login-form .fields-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 15px;
+    width: 60%;
+}
+
+#login-form label {
+    font-weight: bold;
+    color: #1d1b1b;
+}
+
+#login-form input {
+    padding: 10px;
+    border: 2px solid black;
+    border-radius: 15px;
+    font-size: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#login-form button[type="submit"] {
+    align-self: center;
+    margin-top: 20px;
+    min-width: 150px;
+    min-height: 50px;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background: radial-gradient(circle at top left, #ff00aa, #ffea00);
+    border: 2px solid black;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 0 12px #ff00aa, 0 0 30px #00b2ff inset;
+    transition: transform 0.2s, box-shadow 0.3s;
+}
+
+
+#login-form button[type="submit"]:hover {
+    transform: scale(1.05) rotate(-2deg);
+    box-shadow: 0 0 25px #fff, 0 0 40px #ff00aa inset;
 }

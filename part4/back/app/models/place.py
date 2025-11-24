@@ -13,6 +13,7 @@ class Place(BaseModel):
 
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(5000))
+    image_path = db.Column(db.String(255))
     price = db.Column(db.Float, nullable=False)
     latitude = db.Column(db.Float, nullable=False)
     longitude = db.Column(db.Float, nullable=False)

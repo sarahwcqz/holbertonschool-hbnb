@@ -66,12 +66,14 @@
 
             <!-- Jukebox Buttons -->
             <div id="jukebox" style="display:flex; flex-wrap:wrap; justify-content:center; gap:15px;">
-                <button class="jukebox-btn" onclick="playMusic('musique1.mp3', this)">🌈 Prisoner of Love 🌈</button>
-                <button class="jukebox-btn" onclick="playMusic('musique2.mp3', this)">🌔 Not my Mind, Not my Planet
+                <button class="jukebox-btn"
+                    onclick="playMusic('music/Prisoner_Of_Love-Biesmans_&_Vandesande.mp3', this)">🌈 Prisoner of Love
+                    🌈</button>
+                <button class="jukebox-btn" onclick="playMusic('music/Not My_Mind,_Not_My_Planet-Rhode_&_Brown.mp3', this)">🌔 Not my Mind, Not my Planet
                     🌔</button>
-                <button class="jukebox-btn" onclick="playMusic('musique3.mp3', this)">💔 Quitling 💔</button>
-                <button class="jukebox-btn" onclick="playMusic('musique4.mp3', this)">🦄 Therapy 🦄</button>
-                <button class="jukebox-btn" onclick="playMusic('musique4.mp3', this)">🏄‍♀️ Cosmic Renegade
+                <button class="jukebox-btn" onclick="playMusic('music/Quilting-Brandsky.mp3', this)">💔 Quitling 💔</button>
+                <button class="jukebox-btn" onclick="playMusic('music/Mouissie-Therapy.mp3', this)">🦄 Therapy 🦄</button>
+                <button class="jukebox-btn" onclick="playMusic('music/Vitalic-Cosmic_Renegade.mp3', this)">🏄‍♀️ Cosmic Renegade
                     🏄‍♀️</button>
             </div>
         </div>
@@ -83,7 +85,10 @@
             <div class="top-row">
                 <div class="left-block">
                     <img class="logo" src="images/logo.png" height="67px" width="467px" alt="CringeBnb logo">
-                    <p>All rights reserved</p>
+                    <p>All rights reserved.
+                        <br>
+                        Based on a true story.
+                    </p>
                 </div>
                 <img class="icon" src="images/icon.png" height="150px" width="134px" alt="CringBnb icon">
             </div>
@@ -94,7 +99,7 @@
 
     </footer>
 
-
+    <script src="js/jukebox.js"></script>
     <script type="module" src="js/index.js"></script>
     <script src="js/footer.js"></script>
 </body>

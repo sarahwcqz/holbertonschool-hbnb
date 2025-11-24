@@ -54,11 +54,15 @@ function displayPlaces(places) {
         const contentDiv = document.createElement("div");
         contentDiv.classList.add("content");
 
-        /* // image, if implemented one day =D
-        const img = document.createElement("img");
-        img.src = place.image_url || "";
-        img.alt = "place's image"; 
-        contentDiv.appendChild(img);*/
+        // image
+        if (place.image_path) {
+            const img = document.createElement("img");
+            img.src = place.image_path;
+            img.alt = "place image";
+            img.classList.add("place-image");
+            contentDiv.appendChild(img);
+        }
+
 
         // description
         const descr = document.createElement("p");
@@ -73,7 +77,7 @@ function displayPlaces(places) {
         // price
         const price = document.createElement("p");
         price.classList.add("price");
-        price.textContent = place.price;
+        price.textContent = `${place.price} $`;
         buttonsDiv.appendChild(price);
 
         // details-button
@@ -104,10 +108,38 @@ document.addEventListener('DOMContentLoaded', () => {
     //verif auth and gets token
     const token = checkAuthentication();
 
-    // Fetch places data if the user is authenticated
-    if (token) {
-        fetchPlaces(token);
+    const placesList = document.getElementById('places-list');
+
+    if (!token) {
+        // "not logged in"
+        const card = document.createElement('article');
+        card.classList.add('place-card', 'not-logged-in-card'); // ajoute une classe spécifique
+
+        const p = document.createElement('p');
+        p.textContent = "I see you there. Join the party and the rest of the content will follow. ;)";
+        p.classList.add('not-logged-in-text');
+        card.appendChild(p);
+
+        const img = document.createElement('img');
+        img.src = 'images/Loom.jpg';
+        img.alt = 'Loom inviting you to join the partey';
+        img.classList.add('not-logged-in-img');
+        card.appendChild(img);
+
+        const loginBtn = document.createElement('button');
+        loginBtn.textContent = 'Login';
+        loginBtn.classList.add('not-logged-in-btn');
+        loginBtn.addEventListener('click', () => {
+            window.location.href = 'login.html';
+        });
+        card.appendChild(loginBtn);
+
+        placesList.appendChild(card);
+        return;
     }
+
+    // Fetch places data if connected
+    fetchPlaces(token);
 
 
     /* =================================== filter by price ===================================== */

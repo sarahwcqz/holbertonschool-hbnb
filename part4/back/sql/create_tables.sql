@@ -1,11 +1,9 @@
 -- create_tables.sql
 
 -- suppress if existing, to be removed!!!
-DROP TABLE IF EXISTS place_amenity;
-DROP TABLE IF EXISTS reviews;
+
 DROP TABLE IF EXISTS places;
-DROP TABLE IF EXISTS amenities;
-DROP TABLE IF EXISTS users;
+
 
 -- Users table
 CREATE TABLE IF NOT EXISTS users (
@@ -32,6 +30,7 @@ CREATE TABLE IF NOT EXISTS places (
     id TEXT PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
     description VARCHAR(5000),
+    image_path VARCHAR(255),
     price REAL NOT NULL,
     latitude REAL NOT NULL,
     longitude REAL NOT NULL,

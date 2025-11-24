@@ -15,7 +15,7 @@ async function fetchPlaceDetails(token, placeId) {
         }
     });
     if (!response.ok) {
-        console.error('fetchPlaces error:', resp.status);
+        console.error('fetchPlaces error:', response.status);
         return;
     }
     const placeDetails = await response.json();
@@ -38,7 +38,15 @@ function displayPlaceDetails(place) {
     /* ....................................... Title ............................... */
     const title = document.createElement('h1');
     title.classList.add("place-title");
-    title.textContent = place.title;
+    title.textContent = `✨ ${place.title} ✨`;
+
+
+    /* ........................................ Image .............................. */
+    const img = document.createElement('img');
+    img.src = place.image_path;
+    img.alt = "place image";
+    img.classList.add('place-image');
+
 
     /* ....................................... Place info ........................... */
     const infoDiv = document.createElement('div');
@@ -52,10 +60,10 @@ function displayPlaceDetails(place) {
     price.innerHTML = `<strong>Price per night:</strong> ${place.price} $`;
 
     const descr = document.createElement('p');
-    descr.innerHTML = `<strong>Description:</strong> ${place.description}`;
+    descr.innerHTML = `${place.description}`;
 
     const amenities = document.createElement('p');
-    amenities.innerHTML = `<strong>Amenities:</strong>`;
+    amenities.innerHTML = `<strong>What you'll find there:</strong>`;
 
     const list = document.createElement('ul');
     place.amenities.forEach(am => {
@@ -73,6 +81,7 @@ function displayPlaceDetails(place) {
 
     // Append title and infoDiv to main place details section
     placeDetails.appendChild(title);
+    placeDetails.appendChild(img);
     placeDetails.appendChild(infoDiv);
 
 
@@ -81,10 +90,25 @@ function displayPlaceDetails(place) {
     reviewsTitle.textContent = "Reviews";
     reviewsSection.appendChild(reviewsTitle);
 
-    if (!place.reviews || place.reviews.length === 0) {
-        const noRev = document.createElement('p');
-        noRev.textContent = "No reviews yet.";
-        reviewsSection.appendChild(noRev);
+if (!place.reviews || place.reviews.length === 0) {
+    // If no reviews container
+    const noRevContainer = document.createElement('div');
+    noRevContainer.classList.add('review-card');
+    // Image
+    const img = document.createElement('img');
+    img.src = 'images/hidding-head.jpg';
+    img.alt = "No reviews";
+    img.classList.add('no-reviews-image');
+    noRevContainer.appendChild(img);
+
+    // Message
+    const noRev = document.createElement('p');
+    noRev.classList.add('no-review-comment');
+    noRev.textContent = "No reviews yet...";
+    noRevContainer.appendChild(noRev);
+
+    reviewsSection.appendChild(noRevContainer);
+
     } else {
         place.reviews.forEach(rev => {
             const card = document.createElement('article');
@@ -97,9 +121,19 @@ function displayPlaceDetails(place) {
             user.classList.add('review-user');
             user.textContent = `👁️ ${rev.user.first_name} ${rev.user.last_name}`;
 
+            const ratingEmojis = {
+                1: "💀",
+                2: "🤮",
+                3: "🫠",
+                4: "🤡",
+                5: "✨"
+            };
+
             const rating = document.createElement('p');
+            const ratingValue = Number(rev.rating);
             rating.classList.add('review-rating');
-            rating.textContent = `Rating: ${rev.rating}`;
+            rating.textContent = `Rating: ${ratingEmojis[ratingValue] || rev.rating}`;
+
 
             topRow.appendChild(user);
             topRow.appendChild(rating);
