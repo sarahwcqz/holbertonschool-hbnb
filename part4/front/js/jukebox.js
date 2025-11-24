@@ -1,18 +1,41 @@
-function playMusic(file, btn) {
-    const player = document.getElementById('player');
+// ================== GLOBAL PLAYER ==================
+const player = document.getElementById("player");
 
-    // pause if button clicked 2nd time
-    if (player.src.endsWith(file) && !player.paused) {
-        player.pause();
-        btn.classList.remove('active');
-        return;
+// ================== LOAD SAVED STATE ==================
+window.addEventListener("DOMContentLoaded", () => {
+    const savedTrack = localStorage.getItem("jukebox-track");
+    const savedTime = localStorage.getItem("jukebox-time");
+    const wasPlaying = localStorage.getItem("jukebox-playing") === "true";
+
+    if (savedTrack) {
+        player.src = savedTrack;
+
+        player.addEventListener("loadedmetadata", () => {
+            if (savedTime) player.currentTime = parseFloat(savedTime);
+
+            if (wasPlaying) player.play().catch(() => {});
+        });
+    }
+});
+
+// ================== SAVE ON EXIT ==================
+window.addEventListener("beforeunload", () => {
+    localStorage.setItem("jukebox-time", player.currentTime);
+    localStorage.setItem("jukebox-playing", !player.paused);
+});
+
+// ================== PLAY MUSIC ==================
+function playMusic(file, btn) {
+    // Change source only if new file
+    if (player.src.includes(file) === false) {
+        player.src = file;
+        localStorage.setItem("jukebox-track", file);
+        localStorage.setItem("jukebox-time", 0);
     }
 
-    // change source and play music
-    player.src = file;
+    // Play
     player.play();
 
-    // update active state of btn
-    document.querySelectorAll('.jukebox-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+    // Save play state
+    localStorage.setItem("jukebox-playing", true);
 }
