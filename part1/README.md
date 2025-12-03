@@ -1,33 +1,10 @@
-# HBnB Project
+# HBnB - UML
 
-## Presentation of the following document
-- Presentation of the project  
-- Technical documentation  
-    - Package diagram  
-    - Class Diagram  
-    - Sequence Diagram  
+## Index
+1. [Package diagram](#high-level-package-diagram) 
+2. [Class Diagram](#class-diagram)
+3. [Sequence Diagrams](#sequence-diagrams)
 
----
-
-## Presentation of the project
-This is the second trimester of Holberton School’s project. The purpose is to put what we have learned so far, and what we are still learning into practice to be able to recreate an Airbnb clone.
-
-### The purpose of the website
-There are two main kinds of users to this service:
-
-- **People looking for a holiday accommodation**  
-  They can register, find a list of accommodations based on certain criteria (price, location…), rent it, and leave reviews about the accommodation they rented.
-
-- **People providing accommodation**  
-  They also need to register, and can create, update, and delete a page for their accommodation, select the amenities it contains, display the price, location, and availability.
-
-This project helps put into practice key concepts of software engineering such as OOP, Databases, API services, and front-end integration.
-
-### The team
-- Mustapha Chermat  
-- Sarah Wacquiez  
-
----
 
 ## Technical documentation
 The UML diagrams included in this documentation represent the conceptual and structural design of HBnB. They clarify the relationships between entities and layers, serving as a blueprint for implementation.
