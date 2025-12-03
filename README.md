@@ -2,8 +2,8 @@
 
 ## Overview
 1. [Presentation of the project](#presentation-of-the-project)
-2. The 4 stages of the project
-3. Presentation of the team
+2. [The 4 stages of the project](#the-4-stages-of-the-project)
+3. [Presentation of the team](#presentation-of-the-team)
 
 ## Presentation of the project
 HBnB is a full-stack project designed to progressively build a complete clone of the Airbnb platform. Developed through four successive stages, it guides students from the fundamentals of backend architecture to the implementation of a fully dynamic web application. The project emphasizes clean design, modularity, scalability, and collaboration.
