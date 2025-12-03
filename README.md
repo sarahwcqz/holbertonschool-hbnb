@@ -23,7 +23,7 @@ There are two main kinds of users to this service:
 ## The 4 stages of the project
 
 ### 1 - UML
-As part of the HBnB project, a dedicated [UML section](!https://github.com/sarahwcqz/holbertonschool-hbnb/tree/develop/part1) is introduced to formalize the structure and behavior of the application. This stage emphasizes the importance of visual modeling as a tool for understanding, designing, and communicating complex systems.
+As part of the HBnB project, a dedicated [UML section](https://github.com/sarahwcqz/holbertonschool-hbnb/tree/develop/part1) is introduced to formalize the structure and behavior of the application. This stage emphasizes the importance of visual modeling as a tool for understanding, designing, and communicating complex systems.
 
 The UML work centers on creating diagrams that describe the core elements of HBnB, including models, relationships, interactions, and data flow. These diagrams provide a clear, technology-agnostic blueprint of the platform before any implementation takes place, ensuring consistency across all stages of development.
 
@@ -36,7 +36,7 @@ The primary goals of this section are to:
 This UML foundation serves as the conceptual backbone of the HBnB platform, guiding both backend and frontend implementation in a coherent and structured way.
 
 ### 2 - BL and API
-The [Business Logic and API phase](!https://github.com/sarahwcqz/holbertonschool-hbnb/tree/develop/part2) introduces the core functional layer that drives the HBnB application. This stage focuses on separating responsibilities between data handling, application rules, and external communication, ensuring a clean and maintainable architecture.
+The [Business Logic and API phase](https://github.com/sarahwcqz/holbertonschool-hbnb/tree/develop/part2) introduces the core functional layer that drives the HBnB application. This stage focuses on separating responsibilities between data handling, application rules, and external communication, ensuring a clean and maintainable architecture.
 
 The business logic defines how the application behaves: how objects are validated, created, updated, retrieved, and linked together. It establishes consistent rules across the system, independent of storage or interface concerns. This separation enables better scalability, easier testing, and clearer reasoning about the system’s behavior.
 
@@ -51,7 +51,7 @@ The main objectives of this stage are to:
 Together, the business logic and API form the operational core of HBnB, enabling controlled access to data and supporting all subsequent layers of the project.
 
 ### 3 - Auth and DB
-The [Authentication and Database stage](!https://github.com/sarahwcqz/holbertonschool-hbnb/tree/develop/part3) introduces the foundations of secure access control and persistent data management within the HBnB platform. This phase strengthens the application by ensuring that users are properly identified, and that data is stored, retrieved, and structured reliably.
+The [Authentication and Database stage](https://github.com/sarahwcqz/holbertonschool-hbnb/tree/develop/part3) introduces the foundations of secure access control and persistent data management within the HBnB platform. This phase strengthens the application by ensuring that users are properly identified, and that data is stored, retrieved, and structured reliably.
 
 The authentication layer focuses on validating user identity and managing access to protected resources. It introduces mechanisms such as credential verification, session or token-based authentication, and permission checks. This ensures that only authorized users can perform sensitive operations, adding a critical security layer to the platform.
 
@@ -67,7 +67,7 @@ Together, authentication and database management form the structural backbone of
 
 
 ### 4 - Simple Web Client
-The Simple Web Client phase introduces the first front-end layer of the HBnB platform. Its purpose is to provide a lightweight interface that interacts directly with the API, allowing users to visualize and manipulate data through a browser.
+The [Simple Web Client phase](https://github.com/sarahwcqz/holbertonschool-hbnb/tree/develop/part4) introduces the first front-end layer of the HBnB platform. Its purpose is to provide a lightweight interface that interacts directly with the API, allowing users to visualize and manipulate data through a browser.
 
 This stage focuses on building a minimal, functional client capable of fetching, displaying, and updating information in real time. It emphasizes the fundamentals of front-end integration: structured HTML, dynamic rendering with JavaScript, and clean communication with the REST API. The client remains intentionally simple, prioritizing clarity, responsiveness, and correctness over visual complexity.
 
@@ -83,6 +83,6 @@ This stage is the only one carried out independently. All aesthetic choices are 
 
 ## Presentation of the team
 
-- [Mustapha Chermat](!https://github.com/stafach)
+- [Mustapha Chermat](https://github.com/stafach)
 
-- [Sarah Wacquiez](!https://github.com/sarahwcqz)
+- [Sarah Wacquiez](https://github.com/sarahwcqz)
