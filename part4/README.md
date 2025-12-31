@@ -15,6 +15,12 @@ This part is no longer a group project, for this one we will be on our own.
 (By the way, thank you [Mustapha](https://github.com/stafach), it was great working with you!)
 Some parts of this task were required but for most of them we were free to do as we please, this includes the CSS.
 
+**To run the program:**
+- the back server : in part4/back => `python3 run.py`
+- the front server : in part4/front => `python3 -m http.server 5500`
+
+
+
 ## Structure
 ### Objectives
 - Develop a user-friendly interface following provided design specifications.
